@@ -1,0 +1,92 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      "titel": "Senior Fullstack Utvecklare (React/Node)",
+      "Företag": "TechNova Solutions AB",
+      "plats": "Stockholm (Remote)",
+      "varaktighet": "6 månader med option på förlängning",
+      "Timtaxa": "950 - 1100 SEK",
+      "Beskrivning": "Vi söker en erfaren utvecklare för att skala upp vår e-handelsplattform. Du kommer arbeta i ett agilt team med fokus på prestanda och användarupplevelse."
+    },
+    {
+      "id": 2,
+      "titel": "Projektledare inom IT-infrastruktur",
+      "Företag": "CloudBridge Consulting",
+      "plats": "Göteborg",
+      "varaktighet": "12 månader",
+      "Timtaxa": "850 SEK",
+      "Beskrivning": "Ansvar för migrering av lokala servrar till Azure för en kund inom offentlig sektor. Erfarenhet av Prince2 eller ITIL är meriterande."
+    },
+    {
+      "id": 3,
+      "titel": "UX/UI Designer till Fintech-startup",
+      "Företag": "PayFlow Nordic",
+      "plats": "Malmö / Hybrid",
+      "varaktighet": "3 månader initialt",
+      "Timtaxa": "700 - 900 SEK",
+      "Beskrivning": "Hjälp oss att designa nästa generations betallösning. Vi behöver någon som är expert på Figma och användarresor."
+    },
+    {
+      "id": 4,
+      "titel": "Data Analyst (SQL & Python)",
+      "Företag": "Retail Giant SE",
+      "plats": "Uppsala",
+      "varaktighet": "Ongoing",
+      "Timtaxa": "800 SEK",
+      "Beskrivning": "Analysera kunddata för att optimera logistikflöden. Du kommer att arbeta nära ledningsgruppen och presentera insikter via PowerBI."
+    },
+    {
+      "id": 5,
+      "titel": "DevOps Engineer",
+      "Företag": "SecureBank IT",
+      "plats": "Stockholm / On-site",
+      "varaktighet": "8 månader",
+      "Timtaxa": "1200 SEK",
+      "Beskrivning": "Vi behöver förstärkning för att automatisera våra CI/CD-pipelines och förbättra vår Kubernetes-miljö i en säkerhetskritisk miljö."
+    }
+  ],
+  "contacts": [
+    {
+      "id": "1",
+      "namn": "Erik Johansson",
+      "epost": "erik.j@example.se",
+      "kategori": "Offert",
+      "meddelande": "Hej! Jag skulle vilja ha en offert på ert startpaket.",
+      "skapad_at": "2024-02-20T09:15:00Z"
+    },
+    {
+      "id": "2",
+      "namn": "Sara Bergqvist",
+      "epost": "sara.b88@webbmail.com",
+      "kategori": "Support",
+      "meddelande": "Min leverans har inte kommit fram än, kan ni kolla status?",
+      "skapad_at": "2024-02-20T10:30:22Z"
+    },
+    {
+      "id": "3",
+      "namn": "Karl-Gustav Andersson",
+      "epost": "kalle.a@foretaget.se",
+      "kategori": "Allmänt",
+      "meddelande": "Tack för ett bra möte igår! Ser fram emot samarbetet.",
+      "skapad_at": "2024-02-19T16:45:10Z"
+    },
+    {
+      "id": "4",
+      "namn": "Linnéa Lindström",
+      "epost": "linnea.design@frilans.se",
+      "kategori": "Samarbete",
+      "meddelande": "Söker ni frilansare inom UX-design just nu?",
+      "skapad_at": "2024-02-18T11:20:00Z"
+    },
+    {
+      "id": "5",
+      "namn": "Mikael Nilsson",
+      "epost": "micke.n@privat.nu",
+      "kategori": "Support",
+      "meddelande": "Glömde lösenordet till min profil, hur återställer jag det?",
+      "skapad_at": "2024-02-17T08:05:45Z"
+    }
+  ]
+}
+
