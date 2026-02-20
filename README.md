@@ -25,3 +25,9 @@ Kontakt formulär:
     E-post: req, string
     Meddelande: req, string
 }
+
+# Övrigt
+- const chunks = _.chunk([1, 2, 3, 4, 5], 2); // Output: [[1, 2], [3, 4], [5]]
+_.chunk: Splits an array into chunks of a specified size. This is useful for tasks like paginating data or processing data in batches.
+
+
