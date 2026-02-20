@@ -1,7 +1,12 @@
 # 143
 
 ## TODO
-1. Skapa en lista som man kan lägga till jobb som är synkad med en json fil.
+- implementera Om oss
+- kontakt formulär
+- Implementera shadcn
+- när shadcn är implementerat 
+- Lägg till ett filter så att man kan filtrera de lediga jobben
+
 
 ## schemas
 Lediga uppdrag:
