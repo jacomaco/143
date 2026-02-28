@@ -1,6 +1,10 @@
 # 143
 
 ## TODO
+- analysera bruno get request och hitta varför "createdAt" är en grej
+- fixa databasen så att "ansvariga_personer: body.ansvariga_personer || []" heter relevanta personer
+- koppla ihop frontenden med backenden
+- läs om depoyment kapitelt och depolya appen
 - implementera Om oss
 - kontakt formulär
 - Implementera shadcn
