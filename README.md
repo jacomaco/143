@@ -11,6 +11,7 @@
 - [ ] Features: 
     - Create the contact form.
     - [After the main comonents are created] Add functionality to the navbar so that the page scrols to what is selected. https://hackernoon.com/setting-scroll-position-in-react
+    - Add functionality for the 'ansök nu' button. So that when pressed a modal appears an overlays the site displaying more information about the job listing as well as a form for users to show intereset.
     - Build an admin panel for site updates.
 
 - [ ] UI/UX: 
