@@ -1,34 +1,24 @@
 # 143
-
+**Live URL**: https://one43-1s7b.onrender.com/
 ## TODO
-- fixa databasen så att "ansvariga_personer: body.ansvariga_personer || []" heter relevanta personer
-- Skriv tester till jobsRouter.
-- implementera Om oss
-- kontakt formulär
-- fixa admin panel så att man kan uppdatera sidan
-- Implementera shadcn. När shadcn är implementerat. Lägg till ett filter så att man kan filtrera de lediga jobben
-- fixa så att mongodb atlas är configurerar med Renders specifika IP to whitelist, finns i render server logs eller settings. (Option A (recommended for production): Add Render's specific IP to the whitelist. You can find it in Render's service logs or settings.
-Option B (simpler for testing): Click "Add IP Address" → Enter 0.0.0.0/0 (allows access from anywhere) → Confirm)
-- 
 
+- [ ] Testing: Write unit/integration tests for jobsRouter.
 
-## schemas
-Lediga uppdrag:
-{
-    'titel': required, string
-    'Företag': required, string
-    'plats': required, string
-    'varaktighet': string
-    'Timtaxa': string
-    'Beskrivning': required, string
-}
+- [ ] Content: Implement the "Om oss" (About Us) page.
 
-Kontakt formulär:
-{
-    Namn: req, string
-    E-post: req, string
-    Meddelande: req, string
-}
+- [ ] Features: Create the contact form.
+
+- [ ] Admin: Build an admin panel for site updates.
+
+- [ ] UI/UX: - Implement shadcn/ui.
+
+- Add a filtering system for open positions once shadcn is integrated.
+
+- [ ] DevOps/Security: Configure MongoDB Atlas IP Whitelist:
+
+    - Option A (Production): Add Render's specific outbound IP (found in Render logs/settings).
+
+    - Option B (Testing): Set to 0.0.0.0/0 to allow access from anywhere.
 
 # Övrigt
 
