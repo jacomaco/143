@@ -27,7 +27,7 @@ const jobSchema = new mongoose.Schema({
     sista_ansokningsdag: {
         type: Date // Mongoose hanterar datum automatiskt!
     },
-    ansvariga_personer: [{
+    kandidater: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Contact'
     }]

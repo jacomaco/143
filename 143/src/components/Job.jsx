@@ -5,7 +5,7 @@ const Job = ({ job }) => {
       <div className="mb-3">
         <h3 className="text-xl font-bold text-gray-800">{job.titel}</h3>
         <p className="text-blue-600 font-medium text-sm uppercase tracking-wide">
-          {job.Företag}
+          {job.foretag}
         </p>
       </div>
 
@@ -18,13 +18,13 @@ const Job = ({ job }) => {
           <span className="mr-1">🕒</span> {job.varaktighet}
         </div>
         <div className="flex items-center">
-          <span className="mr-1">💰</span> {job.Timtaxa}/h
+          <span className="mr-1">💰</span> {job.timtaxa}/h
         </div>
       </div>
 
       {/* Beskrivning */}
       <p className="text-gray-600 mb-6 leading-relaxed">
-        {job.Beskrivning}
+        {job.beskrivning}
       </p>
 
       {/* Knapp */}
