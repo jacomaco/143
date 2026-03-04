@@ -17,6 +17,7 @@ jobsRouter.post('/', async (request, response) => {
     plats: body.plats,
     varaktighet: body.varaktighet,
     timtaxa: body.timtaxa,
+    kort_beskrivning: body.kort_beskrivning,
     beskrivning: body.beskrivning,
     sista_ansokningsdag: body.sista_ansokningsdag,
     // Om inga personer skickas med, sätter vi en tom array som standard
@@ -42,6 +43,7 @@ jobsRouter.put('/:id', async (request, response) => {
     plats: body.plats,
     varaktighet: body.varaktighet,
     timtaxa: body.timtaxa,
+    kort_beskrivning: body.kort_beskrivning,
     beskrivning: body.beskrivning,
     sista_ansokningsdag: body.sista_ansokningsdag,
     kandidater: body.kandidater || []

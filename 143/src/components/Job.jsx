@@ -1,48 +1,167 @@
+import { useState } from 'react';
+
 const Job = ({ job }) => {
+  // State för att hålla koll på om modalen är öppen eller stängd
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // State för kontaktformuläret
+  const [formData, setFormData] = useState({ namn: '', epost: '', meddelande: '' });
+
+  // Funktion som körs när formuläret skickas in
+  const handleApply = (e) => {
+    e.preventDefault();
+    // Här kommer vi senare anropa backend via ett service-skript
+    console.log("Ansökan redo att skickas för:", job.titel);
+    console.log("Data:", formData);
+    
+    alert("Tack för din intresseanmälan! (Detta är ett test, ingen data sparades ännu)");
+    setIsModalOpen(false);
+    setFormData({ namn: '', epost: '', meddelande: '' }); // Återställ formuläret
+  };
+
   return (
-    <div className="flex flex-col h-full bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow border border-gray-100">
-      
-      {/* Titel och Företag */}
-      <div className="mb-3">
-        <h3 className="text-xl font-bold text-gray-800">{job.titel}</h3>
-        <p className="text-blue-600 font-medium text-sm uppercase tracking-wide">
-          {job.foretag}
+    <>
+      {/* --- KORTET PÅ HUVUDSIDAN --- */}
+      <div className="flex flex-col h-full bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow border border-gray-100">
+        <div className="mb-3">
+          <h3 className="text-xl font-bold text-gray-800">{job.titel}</h3>
+          <p className="text-blue-600 font-medium text-sm uppercase tracking-wide">
+            {job.foretag}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-y-2 gap-x-6 text-sm text-gray-500 mb-4 border-b border-gray-100 pb-4">
+          <div className="flex items-center"><span className="mr-1">📍</span> {job.plats}</div>
+          <div className="flex items-center"><span className="mr-1">🕒</span> {job.varaktighet}</div>
+          <div className="flex items-center"><span className="mr-1">💰</span> {job.timtaxa}/h</div>
+          
+          {job.sista_ansokningsdag && (
+            <div className="flex items-center text-red-500 font-medium">
+              <span className="mr-1">📅</span> Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
+            </div>
+          )}
+        </div>
+
+        <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3">
+          {job.kort_beskrivning}
         </p>
+
+        {/* Ändrade knappen från <a> till <button> och lade till onClick */}
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="mt-auto self-start inline-block bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition delay-150 duration-300 ease-in-out hover:bg-blue-700 hover:-translate-y-1 hover:scale-110 cursor-pointer"
+        >
+          Läs mer & Ansök
+        </button>
       </div>
 
-      {/* Metadata (Plats, Tid, Lön, Datum) */}
-      <div className="flex flex-wrap gap-y-2 gap-x-6 text-sm text-gray-500 mb-4 border-b border-gray-100 pb-4">
-        <div className="flex items-center">
-          <span className="mr-1">📍</span> {job.plats}
-        </div>
-        <div className="flex items-center">
-          <span className="mr-1">🕒</span> {job.varaktighet}
-        </div>
-        <div className="flex items-center">
-          <span className="mr-1">💰</span> {job.timtaxa}/h
-        </div>
-        
-        {/* NYTT: Sista ansökningsdag */}
-        {job.sista_ansokningsdag && (
-          <div className="flex items-center text-red-500 font-medium">
-            <span className="mr-1">📅</span> Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
+      {/* --- MODALEN (Visas bara om isModalOpen är true) --- */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+          {/* Modal-container */}
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative flex flex-col animate-fade-in-up">
+            
+            {/* Modal Header (Ligger alltid kvar i toppen när man scrollar) */}
+            <div className="sticky top-0 bg-white border-b border-gray-100 p-6 flex justify-between items-start z-10 rounded-t-xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800">{job.titel}</h2>
+                <p className="text-blue-600 font-medium text-sm uppercase tracking-wide mt-1">
+                  {job.foretag}
+                </p>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-400 hover:text-gray-800 text-3xl font-bold leading-none p-2 cursor-pointer"
+                title="Stäng"
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              
+              {/* Extra tydlig metadata i rutan */}
+              <div className="flex flex-wrap gap-y-3 gap-x-6 text-sm text-gray-700 mb-8 bg-gray-50 p-5 rounded-lg border border-gray-100">
+                <div className="flex items-center"><span className="mr-2 text-lg">📍</span> {job.plats}</div>
+                <div className="flex items-center"><span className="mr-2 text-lg">🕒</span> {job.varaktighet}</div>
+                <div className="flex items-center"><span className="mr-2 text-lg">💰</span> {job.timtaxa}/h</div>
+                {job.sista_ansokningsdag && (
+                  <div className="flex items-center text-red-600 font-bold">
+                    <span className="mr-2 text-lg">📅</span> Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
+                  </div>
+                )}
+              </div>
+
+              {/* Arbetsbeskrivning (whitespace-pre-line bevarar radbrytningar från databasen) */}
+              <div className="mb-10">
+                <h3 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-blue-600 pb-2 inline-block">Om uppdraget</h3>
+                <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                  {job.beskrivning}
+                </p>
+              </div>
+
+              {/* Kontaktformulär */}
+              <div className="border-t-2 border-gray-100 pt-8 mt-4">
+                <h3 className="text-xl font-bold text-gray-800 mb-6">Är du rätt person? Ansök här!</h3>
+                <form onSubmit={handleApply} className="space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">Ditt Namn *</label>
+                      <input
+                        type="text"
+                        required
+                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                        value={formData.namn}
+                        onChange={(e) => setFormData({...formData, namn: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">Din E-post *</label>
+                      <input
+                        type="email"
+                        required
+                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                        value={formData.epost}
+                        onChange={(e) => setFormData({...formData, epost: e.target.value})}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Meddelande / Länk till LinkedIn</label>
+                    <textarea
+                      rows="4"
+                      className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                      value={formData.meddelande}
+                      onChange={(e) => setFormData({...formData, meddelande: e.target.value})}
+                      placeholder="Berätta kort varför du är rätt för uppdraget, eller klistra in en länk till din profil/CV."
+                    ></textarea>
+                  </div>
+                  
+                  {/* Form knappar */}
+                  <div className="pt-4 flex justify-end gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(false)}
+                      className="px-5 py-2 text-gray-600 hover:text-gray-900 font-medium rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+                    >
+                      Avbryt
+                    </button>
+                    <button
+                      type="submit"
+                      className="bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg cursor-pointer"
+                    >
+                      Skicka ansökan
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
           </div>
-        )}
-      </div>
-
-      {/* Beskrivning */}
-      <p className="text-gray-600 mb-6 leading-relaxed">
-        {job.beskrivning}
-      </p>
-
-      {/* Knapp */}
-      <a
-        href={`#job-${job.id}`}
-        className="mt-auto self-start inline-block bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition delay-150 duration-300 ease-in-out hover:bg-blue-700 hover:-translate-y-1 hover:scale-110"
-      >
-        Ansök nu
-      </a>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 

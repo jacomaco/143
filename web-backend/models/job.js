@@ -21,8 +21,13 @@ const jobSchema = new mongoose.Schema({
     timtaxa: {
         type: String
     },
+    kort_beskrivning: {
+        type: String,
+        required: true
+    },
     beskrivning: {
-        type: String
+        type: String,
+        required: true
     },
     sista_ansokningsdag: {
         type: Date // Mongoose hanterar datum automatiskt!
