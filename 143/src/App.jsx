@@ -8,7 +8,7 @@ export default function App() {
   const [jobs, setJobs] = useState([])
 
   useEffect(() => {
-    jobService.getAll().then(initialJobs => {
+    jobService.getAll().then(initialJobs => { // refactor to use async
       setJobs(initialJobs)
       console.log(initialJobs);
 
