@@ -30,7 +30,8 @@ const jobSchema = new mongoose.Schema({
         required: true
     },
     sista_ansokningsdag: {
-        type: Date // Mongoose hanterar datum automatiskt!
+        type: Date // Mongoose hanterar datum automatiskt!,
+        expires: 0
     },
     kandidater: [{
         type: mongoose.Schema.Types.ObjectId,
