@@ -9,9 +9,10 @@ export default function App() {
 
   useEffect(() => {
     jobService.getAll().then(initialJobs => { // refactor to use async
-      setJobs(initialJobs)
-      console.log(initialJobs);
-
+      // Filtrera bort 'kandidater' från objektet innan det sparas i state
+      const sanitizedJobs = initialJobs.map(({ kandidater, ...rest }) => rest)
+      setJobs(sanitizedJobs)
+      console.log(sanitizedJobs);
     })
   }, [])
   
@@ -25,4 +26,3 @@ export default function App() {
     </div>
   )
 }
-

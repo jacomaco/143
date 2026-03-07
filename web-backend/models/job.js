@@ -31,7 +31,7 @@ const jobSchema = new mongoose.Schema({
     },
     sista_ansokningsdag: {
         type: Date,
-        expires: 0
+        // expires: 0
     },
     kandidater: [{
         type: mongoose.Schema.Types.ObjectId,
