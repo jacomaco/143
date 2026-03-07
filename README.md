@@ -15,6 +15,11 @@
     - [After the main comonents are created] Add functionality to the navbar so that the page scrols to what is selected. https://hackernoon.com/setting-scroll-position-in-react
     - Add functionality for the 'ansök nu' button. So that when pressed a modal appears an overlays the site displaying more information about the job listing as well as a form for users to show intereset.
     - Build an admin panel for site updates.
+    - Look into how files like cv are stored on something like render. Maybe I should use google cloud run to host instead if I can't access the files one the server
+    - when ommiting a field like 'tim taxa' make sure  that it does not display just an emoji
+
+- [ ] Fixes:
+    - Break out this from jos.js 'jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response)' into its own controller
 
 - [ ] UI/UX: 
     - Implement shadcn/ui.
@@ -36,7 +41,4 @@ https://www.google.com/search?q=can+I+use+relations+in+mongodb&sca_esv=643cd21dc
 
 - Förslag på hur man kan hantera admin/user roller:
 https://www.google.com/search?q=how+do+I+differentiate+between+user+and+admin&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRiPAtIBCTE4MTQ2ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8&ved=2ahUKEwiZ2rruqYiTAxUdHxAIHc0kFDIQ0NsOegQIAxAB&aep=10&ntc=1&mstk=AUtExfD6ySXVHKB2wXp4ifMK4qQMuw_QTf2kBOlO4V6PErnSXbuPb57FubY2S_35gMYAYtxh4jVFI4b-ooOyGTeEGGfh-QyeS6EO_Q0VSUx-u21NxWXyypEc7zYlRwMMH9tQUtijXRk05-qjHaxmyQrGpa-MjzEQ6cR8rCymZws_lKRmmMgIoHRtkTifbvF4LZgz4x5cbWorN1W8EW2i8uQrv7B_5ZXQCyPblULTpKrog4eMGbP61wkEj0vKWO7u8pNQVO11zKfK_hmhXRYXQ8rQ1Oaxo2HpQkheIN9PeG6WQ2RmGbYZGMnFyn2udvBHl-CjP8tHMaKvmO61wg&csuir=1&mtid=9DypacqDOP6swPAPncbRuAo&udm=50
-
-
-<h2 className="text-3xl font-extrabold text-gray-900 mb-8">Lediga uppdrag</h2>
 
