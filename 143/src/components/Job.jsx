@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import jobService from '../services/jobs';
 
 const Job = ({ job }) => {
   // State för att hålla koll på om modalen är öppen eller stängd
@@ -15,22 +16,37 @@ const Job = ({ job }) => {
   });
 
   // Funktion som körs när formuläret skickas in
-  const handleApply = (e) => {
+  const handleApply = async (e) => {
     e.preventDefault();
-    // Här kommer vi senare anropa backend via ett service-skript
-    console.log("Ansökan redo att skickas för:", job.titel);
-    console.log("Data:", formData);
     
-    alert("Tack för din intresseanmälan! (Detta är ett test, ingen data sparades ännu)");
-    setIsModalOpen(false);
-    setFormData({ 
-      namn: '', 
-      epost: '', 
-      telefon: '',
-      linkedin: '',
-      cvFile: null,
-      meddelande: '' 
-    }); // Återställ formuläret
+    // Skapa ett FormData-objekt för att kunna skicka filer
+    const dataToSend = new FormData();
+    dataToSend.append('namn', formData.namn);
+    dataToSend.append('epost', formData.epost);
+    dataToSend.append('telefon', formData.telefon);
+    dataToSend.append('linkedin', formData.linkedin);
+    dataToSend.append('meddelande', formData.meddelande);
+    
+    if (formData.cvFile) {
+      dataToSend.append('cvFile', formData.cvFile);
+    }
+
+    try {
+      await jobService.apply(job.id, dataToSend); // Anropa backend
+      alert("Tack för din ansökan! Vi har mottagit dina uppgifter.");
+      setIsModalOpen(false);
+      setFormData({ 
+        namn: '', 
+        epost: '', 
+        telefon: '',
+        linkedin: '',
+        cvFile: null,
+        meddelande: '' 
+      });
+    } catch (error) {
+      console.error("Kunde inte skicka ansökan:", error);
+      alert("Något gick fel vid inskickandet. Försök igen senare.");
+    }
   };
 
   return (

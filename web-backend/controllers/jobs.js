@@ -57,4 +57,22 @@ jobsRouter.put('/:id', async (request, response) => {
   updatedJob ? response.json(updatedJob) : response.status(404).end()
 })
 
+// Route för att skicka in en ansökan (lägger till i kandidater-arrayen)
+jobsRouter.post('/:id/ansokan', async (request, response) => {
+  const body = request.body
+  const job = await Job.findById(request.params.id)
+
+  if (!job) {
+    return response.status(404).end()
+  }
+
+  // Lägg till ansökan i kandidat-listan. 
+  // OBS: För filuppladdning (cvFile) krävs middleware som 'multer'.
+  const ansokan = { ...body, datum: new Date() }
+  job.kandidater = job.kandidater.concat(ansokan)
+  
+  const savedJob = await job.save()
+  response.status(201).json(savedJob)
+})
+
 module.exports = jobsRouter
