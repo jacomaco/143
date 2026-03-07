@@ -8,7 +8,7 @@ const Job = ({ job }) => {
   // State för kontaktformuläret
   const [formData, setFormData] = useState({ 
     namn: '', 
-    epost: '', 
+    email: '', 
     telefon: '',
     linkedin: '',
     cvFile: null,
@@ -25,7 +25,7 @@ const Job = ({ job }) => {
     dataToSend.append('namn', formData.namn);
     
     // HÄR ÄR ÄNDRINGEN: Ändra nyckeln från 'epost' till 'email' så backenden förstår
-    dataToSend.append('email', formData.epost); 
+    dataToSend.append('email', formData.email); 
     
     dataToSend.append('telefon', formData.telefon);
     dataToSend.append('linkedin', formData.linkedin);
@@ -41,7 +41,7 @@ const Job = ({ job }) => {
       setIsModalOpen(false);
       setFormData({ 
         namn: '', 
-        epost: '', 
+        email: '', 
         telefon: '',
         linkedin: '',
         cvFile: null,
@@ -156,8 +156,8 @@ const Job = ({ job }) => {
                         type="email"
                         required
                         className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
-                        value={formData.epost}
-                        onChange={(e) => setFormData({...formData, epost: e.target.value})}
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
                       />
                     </div>
                     <div>
