@@ -16,13 +16,17 @@ const Job = ({ job }) => {
   });
 
   // Funktion som körs när formuläret skickas in
+  // Funktion som körs när formuläret skickas in
   const handleApply = async (e) => {
     e.preventDefault();
     
     // Skapa ett FormData-objekt för att kunna skicka filer
     const dataToSend = new FormData();
     dataToSend.append('namn', formData.namn);
-    dataToSend.append('epost', formData.epost);
+    
+    // HÄR ÄR ÄNDRINGEN: Ändra nyckeln från 'epost' till 'email' så backenden förstår
+    dataToSend.append('email', formData.epost); 
+    
     dataToSend.append('telefon', formData.telefon);
     dataToSend.append('linkedin', formData.linkedin);
     dataToSend.append('meddelande', formData.meddelande);

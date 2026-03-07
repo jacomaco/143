@@ -1,5 +1,11 @@
 const jobsRouter = require('express').Router()
 const Job = require('../models/job')
+const Kandidat = require('../models/kandidat') // Importera den nya Kandidat-modellen
+const multer = require('multer')
+
+// Konfigurera multer. Detta sparar uppladdade filer i mappen "uploads" i din backend.
+// (Du kan behöva skapa mappen "uploads" manuellt i web-backend-mappen)
+const upload = multer({ dest: 'uploads/' })
 
 jobsRouter.get('/', async (request, response) => {
   const jobs = await Job.find({})
@@ -58,20 +64,39 @@ jobsRouter.put('/:id', async (request, response) => {
 })
 
 // Route för att skicka in en ansökan (lägger till i kandidater-arrayen)
-jobsRouter.post('/:id/ansokan', async (request, response) => {
+jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response) => {
+  console.log("BODY:", request.body)
+  console.log("FILE:", request.file)
+
   const body = request.body
+  const file = request.file // Här hamnar informationen om den uppladdade filen
+  
   const job = await Job.findById(request.params.id)
 
   if (!job) {
-    return response.status(404).end()
+    return response.status(404).json({ error: 'Jobbet hittades inte' })
   }
 
-  // Lägg till ansökan i kandidat-listan. 
-  // OBS: För filuppladdning (cvFile) krävs middleware som 'multer'.
-  const ansokan = { ...body, datum: new Date() }
-  job.kandidater = job.kandidater.concat(ansokan)
-  
+  // Skapa en ny kandidat
+  const newKandidat = new Kandidat({
+    namn: body.namn,
+    email: body.email,
+    telefon: body.telefon,
+    meddelande: body.meddelande,
+    linkedin: body.linkedin,
+    // Om en fil laddades upp, spara dess sökväg. Annars sätt till null.
+    cvSokvag: file ? file.path : null, 
+    datum: new Date(),
+    ansoktJobb: job._id
+  })
+
+  // Spara kandidaten i databasen
+  const savedKandidat = await newKandidat.save()
+
+  // Länka kandidaten till jobbet
+  job.kandidater = job.kandidater.concat(savedKandidat._id)
   const savedJob = await job.save()
+  
   response.status(201).json(savedJob)
 })
 

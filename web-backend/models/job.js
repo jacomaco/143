@@ -35,7 +35,7 @@ const jobSchema = new mongoose.Schema({
     },
     kandidater: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Contact'
+        ref: 'Kandidat'
     }]
 }, {
     // Lägger automatiskt till createdAt och updatedAt i databasen
