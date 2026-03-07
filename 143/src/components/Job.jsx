@@ -5,7 +5,14 @@ const Job = ({ job }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   // State för kontaktformuläret
-  const [formData, setFormData] = useState({ namn: '', epost: '', meddelande: '' });
+  const [formData, setFormData] = useState({ 
+    namn: '', 
+    epost: '', 
+    telefon: '',
+    linkedin: '',
+    cvFile: null,
+    meddelande: '' 
+  });
 
   // Funktion som körs när formuläret skickas in
   const handleApply = (e) => {
@@ -16,7 +23,14 @@ const Job = ({ job }) => {
     
     alert("Tack för din intresseanmälan! (Detta är ett test, ingen data sparades ännu)");
     setIsModalOpen(false);
-    setFormData({ namn: '', epost: '', meddelande: '' }); // Återställ formuläret
+    setFormData({ 
+      namn: '', 
+      epost: '', 
+      telefon: '',
+      linkedin: '',
+      cvFile: null,
+      meddelande: '' 
+    }); // Återställ formuläret
   };
 
   return (
@@ -126,15 +140,49 @@ const Job = ({ job }) => {
                         onChange={(e) => setFormData({...formData, epost: e.target.value})}
                       />
                     </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">Telefonnummer</label>
+                      <input
+                        type="tel"
+                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                        value={formData.telefon}
+                        onChange={(e) => setFormData({...formData, telefon: e.target.value})}
+                        placeholder="Valfritt"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">LinkedIn URL</label>
+                      <input
+                        type="url"
+                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                        value={formData.linkedin}
+                        onChange={(e) => setFormData({...formData, linkedin: e.target.value})}
+                        placeholder="https://linkedin.com/in/..."
+                      />
+                    </div>
                   </div>
+
+                  {/* CV Sektion */}
+                  <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <label className="block text-sm font-bold text-gray-700 mb-3">CV / Meritförteckning (PDF eller Word) *</label>
+                    
+                    <input 
+                      type="file" 
+                      accept=".pdf,.doc,.docx"
+                      required
+                      onChange={(e) => setFormData({...formData, cvFile: e.target.files[0]})}
+                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    />
+                  </div>
+
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Meddelande / Länk till LinkedIn</label>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Övrigt meddelande</label>
                     <textarea
                       rows="4"
                       className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                       value={formData.meddelande}
                       onChange={(e) => setFormData({...formData, meddelande: e.target.value})}
-                      placeholder="Berätta kort varför du är rätt för uppdraget, eller klistra in en länk till din profil/CV."
+                      placeholder="Berätta kort varför du är rätt för uppdraget (valfritt)."
                     ></textarea>
                   </div>
                   
