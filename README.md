@@ -24,7 +24,7 @@
 - [ ] UI/UX: 
     - Implement shadcn/ui.
 
-- Add a filtering system for open positions once shadcn is integrated.
+- [ ] Add a filtering system for open positions once shadcn is integrated.
 
 - [ ] DevOps/Security: 
     - Configure MongoDB Atlas IP Whitelist:
