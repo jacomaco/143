@@ -15,10 +15,23 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
-          {/* Logotyp */}
+          {/* Logotyp: Ikon (Star) + Text (Match) */}
           <div className="flex-shrink-0 flex items-center">
-            <a href="#" className="text-2xl font-bold text-slate-900 tracking-tight">
-              143
+            <a href="#" className="flex items-center gap-2 text-2xl font-bold tracking-tight transition-transform hover:scale-105">
+              {/* Enklare variant av stjärnan optimerad för små storlekar */}
+              <svg 
+                className="w-8 h-8 text-blue-500" 
+                viewBox="0 0 24 24" 
+                fill="currentColor" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Själva stjärnformen skapad med Bezier-kurvor för den inåtböjda tech-känslan */}
+                <path d="M12 2 Q12 12 22 12 Q12 12 12 22 Q12 12 2 12 Q12 12 12 2 Z" />
+                {/* Den lilla vita pricken i mitten för extra glans */}
+                <circle cx="12" cy="12" r="1.5" fill="white" />
+              </svg>
+              {/* Texten "Match" i mörkblå/svart */}
+              <span className="text-slate-900">Match</span>
             </a>
           </div>
 
@@ -28,7 +41,7 @@ export default function Header() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-slate-600 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-slate-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 {item.name}
               </a>
@@ -67,7 +80,7 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)} // Stänger menyn när man klickar på en länk
-                className="text-slate-600 hover:text-blue-400 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium"
+                className="text-slate-600 hover:text-blue-500 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium"
               >
                 {item.name}
               </a>

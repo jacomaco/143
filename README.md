@@ -45,6 +45,8 @@ https://www.google.com/search?q=can+I+use+relations+in+mongodb&sca_esv=643cd21dc
 - Förslag på hur man kan hantera admin/user roller:
 https://www.google.com/search?q=how+do+I+differentiate+between+user+and+admin&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRiPAtIBCTE4MTQ2ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8&ved=2ahUKEwiZ2rruqYiTAxUdHxAIHc0kFDIQ0NsOegQIAxAB&aep=10&ntc=1&mstk=AUtExfD6ySXVHKB2wXp4ifMK4qQMuw_QTf2kBOlO4V6PErnSXbuPb57FubY2S_35gMYAYtxh4jVFI4b-ooOyGTeEGGfh-QyeS6EO_Q0VSUx-u21NxWXyypEc7zYlRwMMH9tQUtijXRk05-qjHaxmyQrGpa-MjzEQ6cR8rCymZws_lKRmmMgIoHRtkTifbvF4LZgz4x5cbWorN1W8EW2i8uQrv7B_5ZXQCyPblULTpKrog4eMGbP61wkEj0vKWO7u8pNQVO11zKfK_hmhXRYXQ8rQ1Oaxo2HpQkheIN9PeG6WQ2RmGbYZGMnFyn2udvBHl-CjP8tHMaKvmO61wg&csuir=1&mtid=9DypacqDOP6swPAPncbRuAo&udm=50
 
+- Testa eventuellt text-cyan-400 som färger
+
 1. Koppla Kontaktformuläret till din Backend (Fullstack-uppgift)
 Just nu gör ditt nya ContactForm bara en console.log när man klickar på skicka.
 
