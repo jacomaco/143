@@ -1,12 +1,12 @@
 const ValueProposition = () => {
   return (
-    <section id="services" className="bg-white shadow-md rounded-lg p-8 mb-10 border border-gray-100 overflow-hidden">
+    <section id="services" className="bg-white shadow-md rounded-lg p-8 mb-10 border border-slate-200 overflow-hidden">
       <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">
+        <h2 className="text-3xl font-bold text-slate-900 mb-4">
           Redo att förstärka IT-teamet? Hitta er nästa stjärna med oss idag!
         </h2>
 
-        <p className="text-gray-600 leading-relaxed text-left mb-10">
+        <p className="text-slate-600 leading-relaxed text-left mb-10">
           Vi är experter på att matcha rätt IT-kompetens med rätt företag.
           Oavsett om ni behöver en flexibel resurs för ett kritiskt projekt eller en nyckelspelare för en fast anställning, säkerställer vi att ni får tillgång till marknadens vassaste IT-talanger.
           Som specialister på konsultmäkleri och rekrytering inom IT har vi byggt upp ett gediget nätverk och kompetens kring marknadens mest eftertraktade talanger.
@@ -14,7 +14,7 @@ const ValueProposition = () => {
         </p>
 
         {/* --- ABSTRAKT STJÄRNA (TALANG) SVG --- */}
-        <div className="relative w-full h-64 sm:h-80 mt-8 border-t border-gray-100 pt-10 flex items-center justify-center">
+        <div className="relative w-full h-64 sm:h-80 mt-8 border-t border-slate-200 pt-10 flex items-center justify-center">
           <svg 
             className="w-full h-full" 
             viewBox="0 0 800 400" 
@@ -46,7 +46,7 @@ const ValueProposition = () => {
             </g>
 
             {/* 2. FOKUS: Den lysande tech-stjärnan (Rätt kandidat) */}
-            <g className="text-blue-600">
+            <g className="text-blue-400">
               {/* Glöd-effekt (Större, transparenta stjärnor bakom) */}
               <path 
                 d="M400 50 Q400 190 550 200 Q400 210 400 350 Q400 210 250 200 Q400 190 400 50 Z" 

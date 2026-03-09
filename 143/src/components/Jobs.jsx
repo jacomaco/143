@@ -8,7 +8,7 @@ export default function Jobs({ jobsToShow }) {
 
         {/* Rubriksektionen - nu snyggt centrerad */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-800 border-b-4 border-blue-600 pb-2 inline-block">
+          <h2 className="text-3xl font-bold text-gray-800 border-b-4 border-blue-400 pb-2 inline-block">
             Lediga uppdrag
           </h2>
           <p className="text-gray-500 mt-4 max-w-2xl mx-auto">

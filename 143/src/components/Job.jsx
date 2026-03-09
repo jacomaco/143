@@ -59,7 +59,7 @@ const Job = ({ job }) => {
       <div className="flex flex-col h-full bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow border border-gray-100">
         <div className="mb-3">
           <h3 className="text-xl font-bold text-gray-800">{job.titel}</h3>
-          <p className="text-blue-600 font-medium text-sm uppercase tracking-wide">
+          <p className="text-blue-500 font-medium text-sm uppercase tracking-wide">
             {job.foretag}
           </p>
         </div>
@@ -83,7 +83,7 @@ const Job = ({ job }) => {
         {/* Ändrade knappen från <a> till <button> och lade till onClick */}
         <button
           onClick={() => setIsModalOpen(true)}
-          className="mt-auto self-start inline-block bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition delay-150 duration-300 ease-in-out hover:bg-blue-700 hover:-translate-y-1 hover:scale-110 cursor-pointer"
+          className="mt-auto self-start inline-block bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition delay-150 duration-300 ease-in-out hover:bg-blue-700 hover:-translate-y-1 hover:scale-110 cursor-pointer"
         >
           Läs mer & Ansök
         </button>
@@ -99,7 +99,7 @@ const Job = ({ job }) => {
             <div className="sticky top-0 bg-white border-b border-gray-100 p-6 flex justify-between items-start z-10 rounded-t-xl">
               <div>
                 <h2 className="text-2xl font-bold text-gray-800">{job.titel}</h2>
-                <p className="text-blue-600 font-medium text-sm uppercase tracking-wide mt-1">
+                <p className="text-blue-500 font-medium text-sm uppercase tracking-wide mt-1">
                   {job.foretag}
                 </p>
               </div>
@@ -129,7 +129,7 @@ const Job = ({ job }) => {
 
               {/* Arbetsbeskrivning (whitespace-pre-line bevarar radbrytningar från databasen) */}
               <div className="mb-10">
-                <h3 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-blue-600 pb-2 inline-block">Om uppdraget</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-blue-400 pb-2 inline-block">Om uppdraget</h3>
                 <p className="text-gray-600 leading-relaxed whitespace-pre-line">
                   {job.beskrivning}
                 </p>
@@ -191,7 +191,7 @@ const Job = ({ job }) => {
                       accept=".pdf,.doc,.docx"
                       required
                       onChange={(e) => setFormData({...formData, cvFile: e.target.files[0]})}
-                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100"
                     />
                   </div>
 
@@ -217,7 +217,7 @@ const Job = ({ job }) => {
                     </button>
                     <button
                       type="submit"
-                      className="bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg cursor-pointer"
+                      className="bg-blue-500 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg cursor-pointer"
                     >
                       Skicka ansökan
                     </button>

@@ -24,7 +24,7 @@ const ContactForm = () => {
         
         {/* Rubrik */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 border-b-4 border-blue-600 pb-2 inline-block">
+          <h2 className="text-3xl font-bold text-gray-800 border-b-4 border-blue-500 pb-2 inline-block">
             Kontakta oss
           </h2>
           <p className="text-gray-500 mt-4">
@@ -84,7 +84,7 @@ const ContactForm = () => {
           <div className="pt-4 flex justify-center">
             <button
               type="submit"
-              className="bg-blue-600 text-white px-8 py-3 rounded-md font-medium hover:bg-blue-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 shadow-md hover:shadow-lg cursor-pointer"
+              className="bg-blue-500 text-white px-8 py-3 rounded-md font-medium hover:bg-blue-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 shadow-md hover:shadow-lg cursor-pointer"
             >
               Skicka meddelande
             </button>

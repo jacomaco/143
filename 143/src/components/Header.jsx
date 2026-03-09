@@ -17,7 +17,7 @@ export default function Header() {
 
           {/* Logotyp */}
           <div className="flex-shrink-0 flex items-center">
-            <a href="#" className="text-2xl font-bold text-gray-800 tracking-tight">
+            <a href="#" className="text-2xl font-bold text-slate-900 tracking-tight">
               143
             </a>
           </div>
@@ -28,7 +28,7 @@ export default function Header() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-slate-600 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 {item.name}
               </a>
@@ -39,7 +39,7 @@ export default function Header() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 hover:text-gray-900 focus:outline-none p-2"
+              className="text-slate-600 hover:text-gray-900 focus:outline-none p-2"
               aria-expanded="false"
             >
               <span className="sr-only">Öppna meny</span>
@@ -67,7 +67,7 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)} // Stänger menyn när man klickar på en länk
-                className="text-gray-600 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium"
+                className="text-slate-600 hover:text-blue-400 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium"
               >
                 {item.name}
               </a>

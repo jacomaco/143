@@ -16,7 +16,7 @@ export default function App() {
   }, [])
   
   return (
-    <div className="min-h-screen bg-dot-pattern relative overflow-hidden">
+    <div className="min-h-screen bg-dot-pattern relative">
       
       {/* HÄR ÄR ÄNDRINGEN: Bytte "absolute" mot "fixed" på alla tre färgbollar */}
       <div className="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-400/20 rounded-full blur-[120px] pointer-events-none"></div>

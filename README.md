@@ -24,6 +24,7 @@
 
 - [ ] UI/UX: 
     - Implement shadcn/ui.
+    - When in a job modal. If the user clicks outside ofo the modal, it should close it.
 
 - [ ] Add a filtering system for open positions once shadcn is integrated.
 
@@ -43,3 +44,17 @@ https://www.google.com/search?q=can+I+use+relations+in+mongodb&sca_esv=643cd21dc
 - Förslag på hur man kan hantera admin/user roller:
 https://www.google.com/search?q=how+do+I+differentiate+between+user+and+admin&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRiPAtIBCTE4MTQ2ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8&ved=2ahUKEwiZ2rruqYiTAxUdHxAIHc0kFDIQ0NsOegQIAxAB&aep=10&ntc=1&mstk=AUtExfD6ySXVHKB2wXp4ifMK4qQMuw_QTf2kBOlO4V6PErnSXbuPb57FubY2S_35gMYAYtxh4jVFI4b-ooOyGTeEGGfh-QyeS6EO_Q0VSUx-u21NxWXyypEc7zYlRwMMH9tQUtijXRk05-qjHaxmyQrGpa-MjzEQ6cR8rCymZws_lKRmmMgIoHRtkTifbvF4LZgz4x5cbWorN1W8EW2i8uQrv7B_5ZXQCyPblULTpKrog4eMGbP61wkEj0vKWO7u8pNQVO11zKfK_hmhXRYXQ8rQ1Oaxo2HpQkheIN9PeG6WQ2RmGbYZGMnFyn2udvBHl-CjP8tHMaKvmO61wg&csuir=1&mtid=9DypacqDOP6swPAPncbRuAo&udm=50
 
+1. Koppla Kontaktformuläret till din Backend (Fullstack-uppgift)
+Just nu gör ditt nya ContactForm bara en console.log när man klickar på skicka.
+
+Vad vi kan göra: Vi kan snabbt skapa en ny Mongoose-modell (t.ex. Message) och en POST-route i din Express-backend för att faktiskt spara dessa meddelanden i din databas, precis som vi gjorde med jobbansökningarna. Sedan uppdaterar vi frontendens services/jobs.js (eller skapar en services/messages.js) för att skicka datan dit.
+
+2. Bygg en Footer / Sidfot (Design-uppgift)
+Din sida är supersnygg, men den slutar lite plötsligt direkt efter kontaktformuläret.
+
+Vad vi kan göra: Vi kan bygga en stilren Footer.jsx som lägger sig allra längst ner. Den kan innehålla en copyright-text (t.ex. "© 2026 143 IT-Konsult"), länkar till LinkedIn, kanske ett organisationsnummer, och en liten upprepning av er logga. Det "knyter ihop" hela sidan och får den att kännas som en riktig produkt.
+
+3. Börja på Admin-panelen (Större Portfolio-feature)
+Tidigare pratade vi om att detta är ett grymt portfolio-projekt. Att kunna ta emot ansökningar är steg 1. Att kunna läsa dem är steg 2.
+
+Vad vi kan göra: Vi kan bygga en ny, dold React-route (t.ex. /admin) som hämtar alla jobb och visar vilka kandidater som har sökt dem. Vi kan börja enkelt med att bara lista datan snyggt, och senare kan man lägga till inloggning för att skydda sidan.
