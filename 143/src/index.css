@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+.bg-dot-pattern {
+  background-color: #f8fafc; 
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-attachment: fixed; /* <-- Denna rad gör att rutnätet står stilla! */
+}
