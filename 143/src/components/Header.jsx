@@ -7,7 +7,7 @@ export default function Header() {
   const navItems = [
     { name: "Tjänster", href: "#services" },
     { name: "Lediga uppdrag", href: "#assignments" },
-    { name: "Kontakt", href: "#contact" },
+    { name: "Kontakta oss", href: "#contact" },
   ];
 
   return (
