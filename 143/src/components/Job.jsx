@@ -4,33 +4,33 @@ import jobService from '../services/jobs';
 const Job = ({ job }) => {
   // State för att hålla koll på om modalen är öppen eller stängd
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   // State för kontaktformuläret
-  const [formData, setFormData] = useState({ 
-    namn: '', 
-    email: '', 
+  const [formData, setFormData] = useState({
+    namn: '',
+    email: '',
     telefon: '',
     linkedin: '',
     cvFile: null,
-    meddelande: '' 
+    meddelande: ''
   });
 
   // Funktion som körs när formuläret skickas in
   // Funktion som körs när formuläret skickas in
   const handleApply = async (e) => {
     e.preventDefault();
-    
+
     // Skapa ett FormData-objekt för att kunna skicka filer
     const dataToSend = new FormData();
     dataToSend.append('namn', formData.namn);
-    
+
     // HÄR ÄR ÄNDRINGEN: Ändra nyckeln från 'epost' till 'email' så backenden förstår
-    dataToSend.append('email', formData.email); 
-    
+    dataToSend.append('email', formData.email);
+
     dataToSend.append('telefon', formData.telefon);
     dataToSend.append('linkedin', formData.linkedin);
     dataToSend.append('meddelande', formData.meddelande);
-    
+
     if (formData.cvFile) {
       dataToSend.append('cvFile', formData.cvFile);
     }
@@ -39,13 +39,13 @@ const Job = ({ job }) => {
       await jobService.apply(job.id, dataToSend); // Anropa backend
       alert("Tack för din ansökan! Vi har mottagit dina uppgifter.");
       setIsModalOpen(false);
-      setFormData({ 
-        namn: '', 
-        email: '', 
+      setFormData({
+        namn: '',
+        email: '',
         telefon: '',
         linkedin: '',
         cvFile: null,
-        meddelande: '' 
+        meddelande: ''
       });
     } catch (error) {
       console.error("Kunde inte skicka ansökan:", error);
@@ -68,7 +68,7 @@ const Job = ({ job }) => {
           <div className="flex items-center"><span className="mr-1">📍</span> {job.plats}</div>
           <div className="flex items-center"><span className="mr-1">🕒</span> {job.varaktighet}</div>
           <div className="flex items-center"><span className="mr-1">💰</span> {job.timtaxa}/h</div>
-          
+
           {job.sista_ansokningsdag && (
             <div className="flex items-center text-red-500 font-medium">
               <span className="mr-1">📅</span> Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
@@ -92,11 +92,17 @@ const Job = ({ job }) => {
       {/* --- MODALEN (Visas bara om isModalOpen är true) --- */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-          {/* Modal-container */}
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative flex flex-col animate-fade-in-up">
-            
-            {/* Modal Header (Ligger alltid kvar i toppen när man scrollar) */}
-            <div className="sticky top-0 bg-white border-b border-gray-100 p-6 flex justify-between items-start z-10 rounded-t-xl">
+
+          {/* HÄR ÄR ÄNDRINGEN PÅ WRAPPERN: 
+              Bytte 'overflow-y-auto' mot 'overflow-hidden'. Detta skyddar dina rundade hörn! 
+          */}
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] relative flex flex-col animate-fade-in-up overflow-hidden">
+
+            {/* Modal Header 
+                Tog bort 'sticky' och 'z-10' (behövs inte längre) och lade till 'shrink-0' 
+                så att headern aldrig trycks ihop när innehållet blir för långt.
+            */}
+            <div className="bg-white border-b border-gray-100 p-6 flex justify-between items-start shrink-0">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900">{job.titel}</h2>
                 <p className="text-blue-500 font-medium text-sm uppercase tracking-wide mt-1">
@@ -112,9 +118,12 @@ const Job = ({ job }) => {
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-6">
-              
+            {/* Modal Content 
+                HÄR lägger vi 'overflow-y-auto'. Nu är det bara innehållet som scrollar, 
+                innanför de rundade hörnen!
+            */}
+            <div className="p-6 overflow-y-auto">
+
               {/* Extra tydlig metadata i rutan */}
               <div className="flex flex-wrap gap-y-3 gap-x-6 text-sm text-gray-700 mb-8 bg-gray-50 p-5 rounded-lg border border-gray-100">
                 <div className="flex items-center"><span className="mr-2 text-lg">📍</span> {job.plats}</div>
@@ -127,7 +136,7 @@ const Job = ({ job }) => {
                 )}
               </div>
 
-              {/* Arbetsbeskrivning (whitespace-pre-line bevarar radbrytningar från databasen) */}
+              {/* Arbetsbeskrivning */}
               <div className="mb-10">
                 <h3 className="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-400 pb-2 inline-block">Om uppdraget</h3>
                 <p className="text-slate-600 leading-relaxed whitespace-pre-line">
@@ -147,7 +156,7 @@ const Job = ({ job }) => {
                         required
                         className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                         value={formData.namn}
-                        onChange={(e) => setFormData({...formData, namn: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, namn: e.target.value })}
                       />
                     </div>
                     <div>
@@ -157,7 +166,7 @@ const Job = ({ job }) => {
                         required
                         className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                         value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       />
                     </div>
                     <div>
@@ -166,7 +175,7 @@ const Job = ({ job }) => {
                         type="tel"
                         className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                         value={formData.telefon}
-                        onChange={(e) => setFormData({...formData, telefon: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, telefon: e.target.value })}
                         placeholder="Valfritt"
                       />
                     </div>
@@ -176,7 +185,7 @@ const Job = ({ job }) => {
                         type="url"
                         className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                         value={formData.linkedin}
-                        onChange={(e) => setFormData({...formData, linkedin: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
                         placeholder="https://linkedin.com/in/..."
                       />
                     </div>
@@ -185,12 +194,12 @@ const Job = ({ job }) => {
                   {/* CV Sektion */}
                   <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
                     <label className="block text-sm font-bold text-gray-700 mb-3">CV / Meritförteckning (PDF eller Word) *</label>
-                    
-                    <input 
-                      type="file" 
+
+                    <input
+                      type="file"
                       accept=".pdf,.doc,.docx"
                       required
-                      onChange={(e) => setFormData({...formData, cvFile: e.target.files[0]})}
+                      onChange={(e) => setFormData({ ...formData, cvFile: e.target.files[0] })}
                       className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100"
                     />
                   </div>
@@ -201,11 +210,11 @@ const Job = ({ job }) => {
                       rows="4"
                       className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                       value={formData.meddelande}
-                      onChange={(e) => setFormData({...formData, meddelande: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, meddelande: e.target.value })}
                       placeholder="Berätta kort varför du är rätt för uppdraget (valfritt)."
                     ></textarea>
                   </div>
-                  
+
                   {/* Form knappar */}
                   <div className="pt-4 flex justify-end gap-3">
                     <button
@@ -224,7 +233,6 @@ const Job = ({ job }) => {
                   </div>
                 </form>
               </div>
-
             </div>
           </div>
         </div>
