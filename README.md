@@ -8,6 +8,7 @@
 - [ ] Content: 
     - Contact us
     - Services
+    - footer
 
 
 - [ ] Features: 
