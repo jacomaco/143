@@ -17,20 +17,19 @@
     - Add functionality for the 'ansök nu' button. So that when pressed a modal appears an overlays the site displaying more information about the job listing as well as a form for users to show intereset.
     - Build an admin panel for site updates.
     - Look into how files like cv are stored on something like render. Maybe I should use google cloud run to host instead if I can't access the files one the server
-    - when ommiting a field like 'tim taxa' make sure  that it does not display just an emoji
+
 
 - [ ] Fixes:
-    - Break out this from jos.js 'jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response)' into its own controller
-    
+    - Break out this from jobs.js 'jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response)' into its own controller
+    - when ommiting a field like 'tim taxa' make sure  that it does not display just an emoji
+
 - [ ] Refactor:
     - refactor the job.jsx so that modal and application form is in their separate conponents
     - refactor application form so that it is in it's separeate component
 
 - [ ] UI/UX: 
     - Implement shadcn/ui.
-    - When in a job modal. If the user clicks outside ofo the modal, it should close it.
     - Find a suitable font for the page.
-    - Lägg till en fade in blur när man klicka på modalen.
 
 - [ ] Add a filtering system for open positions once shadcn is integrated.
 
