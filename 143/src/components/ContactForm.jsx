@@ -17,14 +17,14 @@ const ContactForm = () => {
 
   return (
     // HÄR ÄR ÄNDRINGEN: Bakgrund, skugga, rundade hörn och border ligger nu på yttersta sektionen, precis som i din ValueProposition!
-    <section id="contact" className="bg-white shadow-md rounded-lg p-8 mb-10 border border-gray-100">
+    <section id="contact" className="bg-white shadow-md rounded-lg p-8 mb-10 border border-slate-200">
       
       {/* Formuläret och texten begränsas till max-w-3xl och centreras för att vara lättläst */}
       <div className="max-w-3xl mx-auto">
         
         {/* Rubrik */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 border-b-4 border-blue-500 pb-2 inline-block">
+          <h2 className="text-3xl font-bold text-slate-900 border-b-4 border-blue-500 pb-2 inline-block">
             Kontakta oss
           </h2>
           <p className="text-gray-500 mt-4">

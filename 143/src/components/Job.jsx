@@ -56,9 +56,9 @@ const Job = ({ job }) => {
   return (
     <>
       {/* --- KORTET PÅ HUVUDSIDAN --- */}
-      <div className="flex flex-col h-full bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow border border-gray-100">
+      <div className="flex flex-col h-full bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow border border-slate-200">
         <div className="mb-3">
-          <h3 className="text-xl font-bold text-gray-800">{job.titel}</h3>
+          <h3 className="text-xl font-bold text-slate-900">{job.titel}</h3>
           <p className="text-blue-500 font-medium text-sm uppercase tracking-wide">
             {job.foretag}
           </p>
@@ -76,7 +76,7 @@ const Job = ({ job }) => {
           )}
         </div>
 
-        <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3">
+        <p className="text-slate-600 mb-6 leading-relaxed line-clamp-3">
           {job.kort_beskrivning}
         </p>
 
@@ -98,14 +98,14 @@ const Job = ({ job }) => {
             {/* Modal Header (Ligger alltid kvar i toppen när man scrollar) */}
             <div className="sticky top-0 bg-white border-b border-gray-100 p-6 flex justify-between items-start z-10 rounded-t-xl">
               <div>
-                <h2 className="text-2xl font-bold text-gray-800">{job.titel}</h2>
+                <h2 className="text-2xl font-bold text-slate-900">{job.titel}</h2>
                 <p className="text-blue-500 font-medium text-sm uppercase tracking-wide mt-1">
                   {job.foretag}
                 </p>
               </div>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-gray-400 hover:text-gray-800 text-3xl font-bold leading-none p-2 cursor-pointer"
+                className="text-gray-400 hover:text-slate-900 text-3xl font-bold leading-none p-2 cursor-pointer"
                 title="Stäng"
               >
                 &times;
@@ -121,7 +121,7 @@ const Job = ({ job }) => {
                 <div className="flex items-center"><span className="mr-2 text-lg">🕒</span> {job.varaktighet}</div>
                 <div className="flex items-center"><span className="mr-2 text-lg">💰</span> {job.timtaxa}/h</div>
                 {job.sista_ansokningsdag && (
-                  <div className="flex items-center text-red-600 font-bold">
+                  <div className="flex items-center text-red-500 font-bold">
                     <span className="mr-2 text-lg">📅</span> Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
                   </div>
                 )}
@@ -129,15 +129,15 @@ const Job = ({ job }) => {
 
               {/* Arbetsbeskrivning (whitespace-pre-line bevarar radbrytningar från databasen) */}
               <div className="mb-10">
-                <h3 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-blue-400 pb-2 inline-block">Om uppdraget</h3>
-                <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                <h3 className="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-400 pb-2 inline-block">Om uppdraget</h3>
+                <p className="text-slate-600 leading-relaxed whitespace-pre-line">
                   {job.beskrivning}
                 </p>
               </div>
 
               {/* Kontaktformulär */}
               <div className="border-t-2 border-gray-100 pt-8 mt-4">
-                <h3 className="text-xl font-bold text-gray-800 mb-6">Är du rätt person? Ansök här!</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-6">Är du rätt person? Ansök här!</h3>
                 <form onSubmit={handleApply} className="space-y-5">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
@@ -211,7 +211,7 @@ const Job = ({ job }) => {
                     <button
                       type="button"
                       onClick={() => setIsModalOpen(false)}
-                      className="px-5 py-2 text-gray-600 hover:text-gray-900 font-medium rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+                      className="px-5 py-2 text-slate-600 hover:text-gray-900 font-medium rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
                     >
                       Avbryt
                     </button>
