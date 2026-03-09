@@ -21,12 +21,16 @@
 
 - [ ] Fixes:
     - Break out this from jos.js 'jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response)' into its own controller
+    
 - [ ] Refactor:
     - refactor the job.jsx so that modal and application form is in their separate conponents
+    - refactor application form so that it is in it's separeate component
+
 - [ ] UI/UX: 
     - Implement shadcn/ui.
     - When in a job modal. If the user clicks outside ofo the modal, it should close it.
-    - Find a suitable font for the page
+    - Find a suitable font for the page.
+    - Lägg till en fade in blur när man klicka på modalen.
 
 - [ ] Add a filtering system for open positions once shadcn is integrated.
 

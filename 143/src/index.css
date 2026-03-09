@@ -6,3 +6,31 @@
   background-size: 24px 24px;
   background-attachment: fixed; /* <-- Denna rad gör att rutnätet står stilla! */
 }
+
+/* 1. Animation för den mörka/suddiga bakgrunden */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 2. Animation för själva modal-kortet (Tonar in och glider upp/skalas upp något) */
+@keyframes slideUpFade {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px) scale(0.98); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+/* Skapa klasser av animationerna som vi kan använda i React */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slide-up-fade {
+  /* cubic-bezier ger en väldigt mjuk, "Apple-liknande" inbromsning */
+  animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

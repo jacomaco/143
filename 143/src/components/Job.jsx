@@ -92,16 +92,17 @@ const Job = ({ job }) => {
       {/* --- MODALEN (Visas bara om isModalOpen är true) --- */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm cursor-pointer"
-          onClick={() => setIsModalOpen(false)} /* <-- 1. Stänger modalen vid klick på bakgrunden */
+          /* LADE TILL: animate-fade-in 
+             Eftersom denna div redan har bg-black/50 och backdrop-blur-sm, 
+             gör opacity-animationen att BÅDE färgen och bluren tonas in snyggt! */
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm cursor-pointer animate-fade-in"
+          onClick={() => setIsModalOpen(false)}
         >
 
-          {/* HÄR ÄR ÄNDRINGEN PÅ WRAPPERN: 
-              e.stopPropagation() hindrar klicket från att gå vidare till bakgrunden 
-          */}
           <div
-            className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] relative flex flex-col animate-fade-in-up overflow-hidden cursor-auto"
-            onClick={(e) => e.stopPropagation()} /* <-- 2. Gör att klick inuti den vita rutan INTE stänger modalen */
+            /* LADE TILL: animate-slide-up-fade (och tog bort din gamla animate-fade-in-up) */
+            className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] relative flex flex-col overflow-hidden cursor-auto animate-slide-up-fade"
+            onClick={(e) => e.stopPropagation()}
           >
 
             {/* Modal Header */}
