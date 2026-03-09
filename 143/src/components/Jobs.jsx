@@ -8,10 +8,15 @@ export default function Jobs({ jobsToShow }) {
 
         {/* Rubriksektionen - nu snyggt centrerad */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-800 border-b-4 border-blue-400 pb-2 inline-block">
+          {/* HÄR ÄR ÄNDRINGEN: 
+              Tog bort 'border-b-4' och 'border-blue-400'.
+              Ändrade 'pb-2' till 'pb-3' (vilket motsvarar tjockleken på ramen + den gamla paddingen).
+              Passade även på att byta text-gray-800 till text-slate-900 för att matcha ditt nya tema!
+          */}
+          <h2 className="text-3xl font-bold text-slate-900 pb-3 inline-block">
             Lediga uppdrag
           </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+          <p className="text-slate-500 mt-4 max-w-2xl mx-auto">
             Här hittar du våra aktuella uppdrag. Vi letar alltid efter talanger som vill vara med och göra skillnad.
           </p>
         </div>

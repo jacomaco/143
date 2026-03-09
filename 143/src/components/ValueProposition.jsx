@@ -3,7 +3,7 @@ const ValueProposition = () => {
     <section id="services" className="bg-white shadow-md rounded-lg p-8 mb-10 border border-slate-200">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl font-bold text-slate-900 mb-4">
-          Redo att förstärka IT-teamet? Hitta er nästa stjärna med oss idag!
+          Redo att förstärka IT-teamet<br /> Hitta er nästa stjärna med oss idag!
         </h2>
 
         <p className="text-slate-600 leading-relaxed text-left">
