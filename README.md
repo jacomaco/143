@@ -26,6 +26,7 @@
 - [ ] UI/UX: 
     - Implement shadcn/ui.
     - When in a job modal. If the user clicks outside ofo the modal, it should close it.
+    - Find a suitable font for the page
 
 - [ ] Add a filtering system for open positions once shadcn is integrated.
 
