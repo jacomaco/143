@@ -91,17 +91,20 @@ const Job = ({ job }) => {
 
       {/* --- MODALEN (Visas bara om isModalOpen är true) --- */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm cursor-pointer"
+          onClick={() => setIsModalOpen(false)} /* <-- 1. Stänger modalen vid klick på bakgrunden */
+        >
 
           {/* HÄR ÄR ÄNDRINGEN PÅ WRAPPERN: 
-              Bytte 'overflow-y-auto' mot 'overflow-hidden'. Detta skyddar dina rundade hörn! 
+              e.stopPropagation() hindrar klicket från att gå vidare till bakgrunden 
           */}
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] relative flex flex-col animate-fade-in-up overflow-hidden">
+          <div
+            className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] relative flex flex-col animate-fade-in-up overflow-hidden cursor-auto"
+            onClick={(e) => e.stopPropagation()} /* <-- 2. Gör att klick inuti den vita rutan INTE stänger modalen */
+          >
 
-            {/* Modal Header 
-                Tog bort 'sticky' och 'z-10' (behövs inte längre) och lade till 'shrink-0' 
-                så att headern aldrig trycks ihop när innehållet blir för långt.
-            */}
+            {/* Modal Header */}
             <div className="bg-white border-b border-gray-100 p-6 flex justify-between items-start shrink-0">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900">{job.titel}</h2>
@@ -118,10 +121,7 @@ const Job = ({ job }) => {
               </button>
             </div>
 
-            {/* Modal Content 
-                HÄR lägger vi 'overflow-y-auto'. Nu är det bara innehållet som scrollar, 
-                innanför de rundade hörnen!
-            */}
+            {/* Modal Content */}
             <div className="p-6 overflow-y-auto">
 
               {/* Extra tydlig metadata i rutan */}
