@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import ValueProposition from './components/ValueProposition';
 import Jobs from './components/Jobs';
+import ContactForm from './components/ContactForm';
 import jobService from './services/jobs';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
       <main className="max-w-6xl mx-auto px-4 py-10">
         <ValueProposition />
         <Jobs jobsToShow={jobs} />
+        <ContactForm />
       </main>
     </div>
   )
