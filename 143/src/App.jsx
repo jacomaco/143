@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Header from './components/Header';
-import About from './components/About';
+import ValueProposition from './components/ValueProposition';
 import Jobs from './components/Jobs';
 import jobService from './services/jobs';
 
@@ -20,7 +20,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       <main className="max-w-6xl mx-auto px-4 py-10">
-        <About />
+        <ValueProposition />
         <Jobs jobsToShow={jobs} />
       </main>
     </div>
