@@ -8,7 +8,7 @@
     "dev": "NODE_ENV=development node --watch index.js",
     "test": "NODE_ENV=test node --test",
     "build:ui": "rm -rf dist && cd ../143 && npm run build && cp -r dist ../web-backend",
-    "deploy:full": "npm run build:ui && git add . && (git commit -m uibiuld || echo 'Nothing to commit') && git push"
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibiuld && git push"
   },
   "keywords": [],
   "author": "",
