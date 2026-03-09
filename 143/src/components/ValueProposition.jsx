@@ -1,6 +1,6 @@
 const ValueProposition = () => {
   return (
-    <section id="services" className="bg-white shadow-md rounded-lg p-8 mb-10 border border-slate-200">
+    <section id="services" className="scroll-mt-24 bg-white shadow-md rounded-lg p-8 mb-10 border border-slate-200">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl font-bold text-slate-900 mb-4">
           Redo att förstärka IT-teamet<br /> Hitta er nästa stjärna med oss idag!

@@ -3,7 +3,7 @@ import Job from './Job';
 // Ta emot isLoading som en prop
 export default function Jobs({ jobsToShow, isLoading }) {
   return (
-    <section id="assignments" className="py-8">
+    <section id="assignments" className="scroll-mt-24 py-8">
       <div className="max-w-7xl mx-auto">
 
         <div className="text-center mb-12">

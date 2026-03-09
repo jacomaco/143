@@ -17,11 +17,15 @@
     - Add functionality for the 'ansök nu' button. So that when pressed a modal appears an overlays the site displaying more information about the job listing as well as a form for users to show intereset.
     - Build an admin panel for site updates.
     - Look into how files like cv are stored on something like render. Maybe I should use google cloud run to host instead if I can't access the files one the server
+    - make the cards slide in from the bottom when scrolling
+    
 
 
 - [ ] Fixes:
     - Break out this from jobs.js 'jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response)' into its own controller
     - when ommiting a field like 'tim taxa' make sure  that it does not display just an emoji
+    - On mobile when scorlling the big background svg sometimes jumps up or down.
+    - Om mobile when the users presses 'the go back button' make sure that the exit the modal view
 
 - [ ] Refactor:
     - refactor the job.jsx so that modal and application form is in their separate conponents
@@ -40,6 +44,7 @@
         - Option B (Testing): Set to 0.0.0.0/0 to allow access from anywhere.
     
     - Don't include 'kandidater' in frontend or console log!! (handle the axios)
+    -Change the API keys for new ones before launch just in case.
 
 # Övrigt
 

@@ -17,7 +17,7 @@ const ContactForm = () => {
 
   return (
     // HÄR ÄR ÄNDRINGEN: Tog bort 'mb-10' från className!
-    <section id="contact" className="bg-white shadow-md rounded-lg p-8 border border-slate-200">
+    <section id="contact" className="scroll-mt-24 bg-white shadow-md rounded-lg p-8 border border-slate-200">
       
       <div className="max-w-3xl mx-auto">
         
