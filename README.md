@@ -22,7 +22,6 @@
     - Break out this from jobs.js 'jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response)' into its own controller
     - when ommiting a field like 'tim taxa' make sure  that it does not display just an emoji
     - On mobile when scorlling the big background svg sometimes jumps up or down.
-    - Om mobile when the users presses 'the go back button' make sure that the exit the modal view
 
 - [ ] Refactor:
     - refactor the job.jsx so that modal and application form is in their separate conponents
@@ -42,6 +41,9 @@
     
     - Don't include 'kandidater' in frontend or console log!! (handle the axios)
     -Change the API keys for new ones before launch just in case.
+
+- [ ] Legal:
+    - Implement a GDPR complient 'Privacy Policy'
 
 # Övrigt
 
