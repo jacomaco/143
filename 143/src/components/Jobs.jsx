@@ -23,7 +23,8 @@ export default function Jobs({ jobsToShow, isLoading }) {
             {[1, 2, 3].map((n) => (
               <div
                 key={n}
-                className="h-[320px] bg-slate-200/50 animate-pulse rounded-lg border border-slate-100"
+                /* ÄNDRAT: Samma mörka glassmorphism-stil som de riktiga korten, fast pulserande! */
+                className="h-[320px] bg-slate-900/60 backdrop-blur-md animate-pulse rounded-xl border border-slate-700/50 shadow-xl"
               ></div>
             ))}
           </div>
@@ -36,7 +37,7 @@ export default function Jobs({ jobsToShow, isLoading }) {
           </div>
         ) : (
           // FALLBACK OM DATABASEN ÄR TOM PÅ JOBB
-          <div className="text-center text-slate-500 py-10 bg-white rounded-lg border border-slate-200 shadow-sm">
+          <div className="text-center text-slate-300 py-10 bg-slate-900/60 backdrop-blur-md rounded-xl border border-slate-700/50 shadow-xl">
             Just nu har vi inga lediga uppdrag, men skicka gärna en spontanansökan nedan!
           </div>
         )}

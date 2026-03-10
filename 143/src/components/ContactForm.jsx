@@ -87,7 +87,7 @@ const ContactForm = () => {
           <div className="pt-4 flex justify-center">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-8 py-3 rounded-md font-medium hover:bg-blue-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 shadow-md hover:shadow-lg cursor-pointer"
+              className="bg-blue-600 text-white px-8 py-3 rounded-md font-medium hover:bg-blue-500 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 shadow-md hover:shadow-lg cursor-pointer"
             >
               Skicka meddelande
             </button>
