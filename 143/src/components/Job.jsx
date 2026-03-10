@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import jobService from '../services/jobs';
 
 const Job = ({ job }) => {
@@ -12,6 +12,38 @@ const Job = ({ job }) => {
     cvFile: null,
     meddelande: ''
   });
+
+  // NYTT: Hanterar mobilens "Tillbaka"-knapp via History API
+  useEffect(() => {
+    const handlePopState = (e) => {
+      // Om användaren klickar tillbaka, stäng modalen
+      if (isModalOpen) {
+        setIsModalOpen(false);
+      }
+    };
+
+    if (isModalOpen) {
+      // Lägg till ett nytt "state" i historiken när modalen öppnas
+      window.history.pushState({ modalOpen: true }, '');
+      // Lyssna på om användaren klickar bakåt
+      window.addEventListener('popstate', handlePopState);
+    }
+
+    // Cleanup: ta bort lyssnaren när komponenten uppdateras eller stängs
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isModalOpen]);
+
+  // NY HJÄLPFUNKTION: För att stänga via knapp/kryss
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // Om vi stänger via X-knappen, gå bakåt i historiken automatiskt
+    // så att vi inte lämnar skräp-states kvar.
+    if (window.history.state && window.history.state.modalOpen) {
+      window.history.back();
+    }
+  };
 
   const handleApply = async (e) => {
     e.preventDefault();
@@ -30,7 +62,9 @@ const Job = ({ job }) => {
     try {
       await jobService.apply(job.id, dataToSend);
       alert("Tack för din ansökan! Vi har mottagit dina uppgifter.");
-      setIsModalOpen(false);
+      
+      closeModal(); // Använd den nya stäng-funktionen
+      
       setFormData({
         namn: '',
         email: '',
@@ -48,10 +82,8 @@ const Job = ({ job }) => {
   return (
     <>
       {/* --- KORTET PÅ HUVUDSIDAN --- */}
-      {/* ÄNDRAT: Mörk frostat glas-bakgrund (bg-slate-900/60) */}
       <div className="flex flex-col h-full bg-slate-900/60 backdrop-blur-md shadow-xl rounded-xl p-6 hover:shadow-2xl transition-shadow border border-slate-700/50">
         <div className="mb-3">
-          {/* ÄNDRAT: text-white */}
           <h3 className="text-xl font-bold text-white">{job.titel}</h3>
           <p className="text-blue-400 font-medium text-sm uppercase tracking-wide">
             {job.foretag}
@@ -60,22 +92,18 @@ const Job = ({ job }) => {
 
         {/* --- METADATA (Ikoner) I KORTET --- */}
         <div className="flex flex-wrap gap-y-3 gap-x-5 text-sm text-slate-400 mb-4 border-b border-slate-700/50 pb-4">
-
           <div className="flex items-center text-slate-300">
             <svg className="w-4 h-4 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
             {job.plats}
           </div>
-
           <div className="flex items-center text-slate-300">
             <svg className="w-4 h-4 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             {job.varaktighet}
           </div>
-
           <div className="flex items-center text-slate-300">
             <svg className="w-4 h-4 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             {job.timtaxa}/h
           </div>
-
           {job.sista_ansokningsdag && (
             <div className="flex items-center text-red-400 font-medium">
               <svg className="w-4 h-4 mr-1.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -84,7 +112,6 @@ const Job = ({ job }) => {
           )}
         </div>
 
-        {/* ÄNDRAT: text-slate-300 */}
         <p className="text-slate-300 mb-6 leading-relaxed line-clamp-3">
           {job.kort_beskrivning}
         </p>
@@ -97,18 +124,16 @@ const Job = ({ job }) => {
         </button>
       </div>
 
-      {/* --- MODALEN (Visas bara om isModalOpen är true) --- */}
+      {/* --- MODALEN --- */}
       {isModalOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm cursor-pointer animate-fade-in"
-          onClick={() => setIsModalOpen(false)}
+          onClick={closeModal} // Ändrat från setIsModalOpen(false)
         >
           <div
-            // ÄNDRAT: Mörk bakgrund (bg-slate-900) på själva modalen
             className="bg-slate-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] relative flex flex-col overflow-hidden cursor-auto animate-slide-up-fade border border-slate-700/50"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* ÄNDRAT: Mörk header */}
             <div className="bg-slate-900/95 backdrop-blur border-b border-slate-700/50 p-6 flex justify-between items-start shrink-0">
               <div>
                 <h2 className="text-2xl font-bold text-white">{job.titel}</h2>
@@ -117,7 +142,7 @@ const Job = ({ job }) => {
                 </p>
               </div>
               <button
-                onClick={() => setIsModalOpen(false)}
+                onClick={closeModal} // Ändrat från setIsModalOpen(false)
                 className="text-slate-400 hover:text-white text-3xl font-bold leading-none p-2 cursor-pointer transition-colors"
                 title="Stäng"
               >
@@ -126,26 +151,19 @@ const Job = ({ job }) => {
             </div>
 
             <div className="p-6 overflow-y-auto custom-scrollbar">
-
-              {/* --- METADATA (Ikoner) I MODALEN --- */}
-              {/* ÄNDRAT: Mörk bakgrund för info-rutan (bg-slate-800/50) */}
               <div className="flex flex-wrap gap-y-4 gap-x-8 text-sm text-slate-300 mb-8 bg-slate-800/50 p-5 rounded-lg border border-slate-700/50">
-
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                   {job.plats}
                 </div>
-
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   {job.varaktighet}
                 </div>
-
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   {job.timtaxa}/h
                 </div>
-
                 {job.sista_ansokningsdag && (
                   <div className="flex items-center text-red-400 font-bold">
                     <svg className="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -232,7 +250,7 @@ const Job = ({ job }) => {
                   <div className="pt-4 flex justify-end gap-3">
                     <button
                       type="button"
-                      onClick={() => setIsModalOpen(false)}
+                      onClick={closeModal} // Ändrat från setIsModalOpen(false)
                       className="px-5 py-2 text-slate-400 hover:text-white font-medium rounded-md hover:bg-slate-800 transition-colors cursor-pointer"
                     >
                       Avbryt
