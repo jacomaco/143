@@ -125,7 +125,7 @@ const Job = ({ job }) => {
               </button>
             </div>
 
-            <div className="p-6 overflow-y-auto">
+            <div className="p-6 overflow-y-auto custom-scrollbar">
 
               {/* --- METADATA (Ikoner) I MODALEN --- */}
               {/* ÄNDRAT: Mörk bakgrund för info-rutan (bg-slate-800/50) */}
