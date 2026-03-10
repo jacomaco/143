@@ -2,10 +2,8 @@ import { useState } from 'react';
 import jobService from '../services/jobs';
 
 const Job = ({ job }) => {
-  // State för att hålla koll på om modalen är öppen eller stängd
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // State för kontaktformuläret
   const [formData, setFormData] = useState({
     namn: '',
     email: '',
@@ -15,18 +13,12 @@ const Job = ({ job }) => {
     meddelande: ''
   });
 
-  // Funktion som körs när formuläret skickas in
-  // Funktion som körs när formuläret skickas in
   const handleApply = async (e) => {
     e.preventDefault();
 
-    // Skapa ett FormData-objekt för att kunna skicka filer
     const dataToSend = new FormData();
     dataToSend.append('namn', formData.namn);
-
-    // HÄR ÄR ÄNDRINGEN: Ändra nyckeln från 'epost' till 'email' så backenden förstår
     dataToSend.append('email', formData.email);
-
     dataToSend.append('telefon', formData.telefon);
     dataToSend.append('linkedin', formData.linkedin);
     dataToSend.append('meddelande', formData.meddelande);
@@ -36,7 +28,7 @@ const Job = ({ job }) => {
     }
 
     try {
-      await jobService.apply(job.id, dataToSend); // Anropa backend
+      await jobService.apply(job.id, dataToSend); 
       alert("Tack för din ansökan! Vi har mottagit dina uppgifter.");
       setIsModalOpen(false);
       setFormData({
@@ -64,14 +56,28 @@ const Job = ({ job }) => {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-y-2 gap-x-6 text-sm text-gray-500 mb-4 border-b border-gray-100 pb-4">
-          <div className="flex items-center"><span className="mr-1">📍</span> {job.plats}</div>
-          <div className="flex items-center"><span className="mr-1">🕒</span> {job.varaktighet}</div>
-          <div className="flex items-center"><span className="mr-1">💰</span> {job.timtaxa}/h</div>
+        {/* --- METADATA (Ikoner) I KORTET --- */}
+        <div className="flex flex-wrap gap-y-3 gap-x-5 text-sm text-slate-500 mb-4 border-b border-slate-100 pb-4">
+          
+          <div className="flex items-center text-slate-600">
+            <svg className="w-4 h-4 mr-1.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            {job.plats}
+          </div>
+          
+          <div className="flex items-center text-slate-600">
+            <svg className="w-4 h-4 mr-1.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            {job.varaktighet}
+          </div>
+          
+          <div className="flex items-center text-slate-600">
+            <svg className="w-4 h-4 mr-1.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            {job.timtaxa}/h
+          </div>
 
           {job.sista_ansokningsdag && (
-            <div className="flex items-center text-red-500 font-medium">
-              <span className="mr-1">📅</span> Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
+            <div className="flex items-center text-red-600 font-medium">
+              <svg className="w-4 h-4 mr-1.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
             </div>
           )}
         </div>
@@ -80,7 +86,6 @@ const Job = ({ job }) => {
           {job.kort_beskrivning}
         </p>
 
-        {/* Ändrade knappen från <a> till <button> och lade till onClick */}
         <button
           onClick={() => setIsModalOpen(true)}
           className="mt-auto self-start inline-block bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition delay-150 duration-300 ease-in-out hover:bg-blue-700 hover:-translate-y-1 hover:scale-110 cursor-pointer"
@@ -92,20 +97,13 @@ const Job = ({ job }) => {
       {/* --- MODALEN (Visas bara om isModalOpen är true) --- */}
       {isModalOpen && (
         <div
-          /* LADE TILL: animate-fade-in 
-             Eftersom denna div redan har bg-black/50 och backdrop-blur-sm, 
-             gör opacity-animationen att BÅDE färgen och bluren tonas in snyggt! */
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm cursor-pointer animate-fade-in"
           onClick={() => setIsModalOpen(false)}
         >
-
           <div
-            /* LADE TILL: animate-slide-up-fade (och tog bort din gamla animate-fade-in-up) */
             className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] relative flex flex-col overflow-hidden cursor-auto animate-slide-up-fade"
             onClick={(e) => e.stopPropagation()}
           >
-
-            {/* Modal Header */}
             <div className="bg-white border-b border-gray-100 p-6 flex justify-between items-start shrink-0">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900">{job.titel}</h2>
@@ -122,22 +120,34 @@ const Job = ({ job }) => {
               </button>
             </div>
 
-            {/* Modal Content */}
             <div className="p-6 overflow-y-auto">
 
-              {/* Extra tydlig metadata i rutan */}
-              <div className="flex flex-wrap gap-y-3 gap-x-6 text-sm text-gray-700 mb-8 bg-gray-50 p-5 rounded-lg border border-gray-100">
-                <div className="flex items-center"><span className="mr-2 text-lg">📍</span> {job.plats}</div>
-                <div className="flex items-center"><span className="mr-2 text-lg">🕒</span> {job.varaktighet}</div>
-                <div className="flex items-center"><span className="mr-2 text-lg">💰</span> {job.timtaxa}/h</div>
+              {/* --- METADATA (Ikoner) I MODALEN --- */}
+              <div className="flex flex-wrap gap-y-4 gap-x-8 text-sm text-slate-700 mb-8 bg-slate-50 p-5 rounded-lg border border-slate-100">
+                
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                  {job.plats}
+                </div>
+                
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  {job.varaktighet}
+                </div>
+                
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  {job.timtaxa}/h
+                </div>
+
                 {job.sista_ansokningsdag && (
-                  <div className="flex items-center text-red-500 font-bold">
-                    <span className="mr-2 text-lg">📅</span> Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
+                  <div className="flex items-center text-red-600 font-bold">
+                    <svg className="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    Sista ansökan: {new Date(job.sista_ansokningsdag).toLocaleDateString('sv-SE')}
                   </div>
                 )}
               </div>
 
-              {/* Arbetsbeskrivning */}
               <div className="mb-10">
                 <h3 className="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-400 pb-2 inline-block">Om uppdraget</h3>
                 <p className="text-slate-600 leading-relaxed whitespace-pre-line">
@@ -145,7 +155,6 @@ const Job = ({ job }) => {
                 </p>
               </div>
 
-              {/* Kontaktformulär */}
               <div className="border-t-2 border-gray-100 pt-8 mt-4">
                 <h3 className="text-xl font-bold text-slate-900 mb-6">Är du rätt person? Ansök här!</h3>
                 <form onSubmit={handleApply} className="space-y-5">
@@ -192,10 +201,8 @@ const Job = ({ job }) => {
                     </div>
                   </div>
 
-                  {/* CV Sektion */}
                   <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
                     <label className="block text-sm font-bold text-gray-700 mb-3">CV / Meritförteckning (PDF eller Word) *</label>
-
                     <input
                       type="file"
                       accept=".pdf,.doc,.docx"
@@ -216,7 +223,6 @@ const Job = ({ job }) => {
                     ></textarea>
                   </div>
 
-                  {/* Form knappar */}
                   <div className="pt-4 flex justify-end gap-3">
                     <button
                       type="button"
