@@ -1,10 +1,36 @@
+import { useEffect, useState } from 'react';
+
 const Background = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <>
-      {/* Bakgrunds-bollar */}
-      <div className="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-400/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
-      <div className="fixed top-[20%] right-[-5%] w-[400px] h-[400px] bg-indigo-400/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
-      <div className="fixed bottom-[10%] left-[20%] w-[600px] h-[600px] bg-cyan-400/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      {/* Interactive Spotlight - Nu med ett svagt vitt/cyan-sken som ser ut som en stjärnficklampa */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(34, 211, 238, 0.08), transparent 40%)`
+        }}
+      ></div>
+
+      {/* NEBULOSORNA (Ligger bakom allt) */}
+      {/* Nebulosa 1: Djup lila uppe till vänster */}
+      <div className="fixed top-[-10%] left-[-10%] w-[600px] h-[600px] bg-purple-600/40 rounded-full blur-[150px] pointer-events-none z-0 mix-blend-screen"></div>
+      
+      {/* Nebulosa 2: Klar cyan uppe till höger */}
+      <div className="fixed top-[10%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/30 rounded-full blur-[130px] pointer-events-none z-0 mix-blend-screen"></div>
+      
+      {/* Nebulosa 3: Varm fuchsia/rosa i botten */}
+      <div className="fixed bottom-[-10%] left-[20%] w-[800px] h-[800px] bg-fuchsia-600/20 rounded-full blur-[160px] pointer-events-none z-0 mix-blend-screen"></div>
 
       {/* Stor SVG i bakgrunden */}
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0 opacity-40">
@@ -26,7 +52,7 @@ const Background = () => {
             <circle cx="550" cy="155" r="4" fillOpacity="0.6" />
             <circle cx="680" cy="200" r="3.5" fillOpacity="0.4" />
           </g>
-          <g className="text-blue-500">
+          <g className="text-blue-500 animate-star-glow origin-center">
             <path d="M400 50 Q400 190 550 200 Q400 210 400 350 Q400 210 250 200 Q400 190 400 50 Z" fill="currentColor" fillOpacity="0.05" />
             <path d="M400 100 Q400 195 500 200 Q400 205 400 300 Q400 205 300 200 Q400 195 400 100 Z" fill="currentColor" fillOpacity="0.15" />
             <path d="M400 130 Q400 195 470 200 Q400 205 400 270 Q400 205 330 200 Q400 195 400 130 Z" fill="currentColor" />

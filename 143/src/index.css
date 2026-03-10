@@ -1,19 +1,38 @@
 @import "tailwindcss";
 
-.bg-dot-pattern {
-  background-color: #f8fafc; 
-  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-  background-size: 24px 24px;
-  background-attachment: fixed; /* <-- Denna rad gör att rutnätet står stilla! */
+/* 1. Stjärnans glöd och svävande (Oförändrad, 8 sekunder) */
+@keyframes starGlow {
+  0%, 100% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 0px rgba(59, 130, 246, 0));
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 25px rgba(59, 130, 246, 0.6));
+    transform: translateY(-8px) scale(1.02); 
+  }
 }
 
-/* 1. Animation för den mörka/suddiga bakgrunden */
+/* 2. NYTT: Rutnätets pulserande andning (Synkad med stjärnan) */
+@keyframes gridPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3; /* Svagare i viloläge */
+  }
+  50% {
+    transform: scale(1.04); /* Zoomar in 4% väldigt mjukt från mitten */
+    opacity: 0.8; /* Lyser upp när stjärnan lyser upp */
+  }
+}
+
+/* 3. Animation för den mörka/suddiga bakgrunden (Modalen) */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* 2. Animation för själva modal-kortet (Tonar in och glider upp/skalas upp något) */
+/* 4. Animation för själva modal-kortet */
 @keyframes slideUpFade {
   from { 
     opacity: 0; 
@@ -25,12 +44,43 @@
   }
 }
 
-/* Skapa klasser av animationerna som vi kan använda i React */
+/* Huvudklassen för bakgrunden */
+.bg-dot-pattern {
+  background-color: #143454; 
+}
+
+/* Vi ritar ut rutnätet i ett osynligt lager bakom allt annat */
+.bg-dot-pattern::before {
+  content: "";
+  position: fixed; /* Ligger still i bakgrunden vid scroll */
+  inset: -20%; /* Gör ytan större än skärmen så vi kan zooma utan att se kanterna */
+  
+  /* Nytt "stjärnfält" istället för gråa prickar */
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+  background-size: 24px 24px, 48px 48px;
+  background-position: center center; /* Centrerar prickarna runt stjärnan! */
+  
+  /* NYTT: Tonar ut rutnätet mjukt ut mot kanterna ("Vignette") */
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
+  
+  z-index: 0;
+  pointer-events: none;
+  
+  /* Animerar inzoomning och transparens i EXAKT samma tempo som stjärnan (8s) */
+  animation: gridPulse 8s ease-in-out infinite; 
+}
+
+.animate-star-glow {
+  animation: starGlow 8s ease-in-out infinite;
+}
+
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
 .animate-slide-up-fade {
-  /* cubic-bezier ger en väldigt mjuk, "Apple-liknande" inbromsning */
   animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
