@@ -13,11 +13,8 @@
 
 - [ ] Features: 
     - Create the contact form. (implement frontend backend integration)
-    - [After the main comonents are created] Add functionality to the navbar so that the page scrols to what is selected. https://hackernoon.com/setting-scroll-position-in-react
-    - Add functionality for the 'ansök nu' button. So that when pressed a modal appears an overlays the site displaying more information about the job listing as well as a form for users to show intereset.
     - Build an admin panel for site updates.
     - Look into how files like cv are stored on something like render. Maybe I should use google cloud run to host instead if I can't access the files one the server
-    - make the cards slide in from the bottom when scrolling
     
 
 
