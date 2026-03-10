@@ -16,17 +16,19 @@ const ContactForm = () => {
   };
 
   return (
-    // HÄR ÄR ÄNDRINGEN: Tog bort 'mb-10' från className!
-    <section id="contact" className="scroll-mt-24 bg-white shadow-md rounded-lg p-8 border border-slate-200">
+    // ÄNDRAT: Mörk frostat glas-bakgrund som matchar ValueProposition
+    <section id="contact" className="scroll-mt-24 bg-slate-900/60 backdrop-blur-md shadow-xl rounded-xl p-8 border border-slate-700/50">
       
       <div className="max-w-3xl mx-auto">
         
         {/* Rubrik */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-900 pb-3 inline-block">
+          {/* ÄNDRAT: text-white */}
+          <h2 className="text-3xl font-bold text-white pb-3 inline-block">
             Kontakta oss
           </h2>
-          <p className="text-slate-500 mt-4">
+          {/* ÄNDRAT: text-slate-300 */}
+          <p className="text-slate-300 mt-4">
             Har du frågor kring våra tjänster eller vill du diskutera ett framtida samarbete? 
             Tveka inte att höra av dig via formuläret nedan.
           </p>
@@ -36,21 +38,23 @@ const ContactForm = () => {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Namn *</label>
+              {/* ÄNDRAT: text-slate-300 på labels */}
+              <label className="block text-sm font-semibold text-slate-300 mb-1">Namn *</label>
               <input
                 type="text"
                 required
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow bg-gray-50/50"
+                // ÄNDRAT: Mörk bakgrund på inputfälten (bg-slate-800/80), vit text och ljusgrå border
+                className="w-full bg-slate-800/80 border border-slate-600 text-white placeholder-slate-400 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                 value={formData.namn}
                 onChange={(e) => setFormData({...formData, namn: e.target.value})}
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">E-post *</label>
+              <label className="block text-sm font-semibold text-slate-300 mb-1">E-post *</label>
               <input
                 type="email"
                 required
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow bg-gray-50/50"
+                className="w-full bg-slate-800/80 border border-slate-600 text-white placeholder-slate-400 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
               />
@@ -58,10 +62,10 @@ const ContactForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Telefonnummer</label>
+            <label className="block text-sm font-semibold text-slate-300 mb-1">Telefonnummer</label>
             <input
               type="tel"
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow bg-gray-50/50"
+              className="w-full bg-slate-800/80 border border-slate-600 text-white placeholder-slate-400 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
               value={formData.telefon}
               onChange={(e) => setFormData({...formData, telefon: e.target.value})}
               placeholder="Valfritt"
@@ -69,11 +73,11 @@ const ContactForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Meddelande *</label>
+            <label className="block text-sm font-semibold text-slate-300 mb-1">Meddelande *</label>
             <textarea
               required
               rows="5"
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow bg-gray-50/50"
+              className="w-full bg-slate-800/80 border border-slate-600 text-white placeholder-slate-400 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
               value={formData.meddelande}
               onChange={(e) => setFormData({...formData, meddelande: e.target.value})}
               placeholder="Hur kan vi hjälpa dig?"
@@ -89,7 +93,6 @@ const ContactForm = () => {
             </button>
           </div>
         </form>
-
       </div>
     </section>
   );
