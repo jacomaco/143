@@ -1,44 +1,21 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
-    titel: {
-        type: String,
-        required: true
-    },
-    namn: {
-        type: String
-    },
-    foretag: {
-        type: String,
-        required: true
-    },
-    plats: {
-        type: String
-    },
-    varaktighet: {
-        type: String
-    },
-    timtaxa: {
-        type: String
-    },
-    kort_beskrivning: {
-        type: String,
-        required: true
-    },
-    beskrivning: {
-        type: String,
-        required: true
-    },
-    sista_ansokningsdag: {
-        type: Date,
-        // expires: 0
-    },
+    titel: { type: String, required: true },
+    namn: { type: String },
+    foretag: { type: String, required: true },
+    plats: { type: String },
+    varaktighet: { type: String },
+    omfattning: { type: String, required: true }, 
+    timtaxa: { type: String },
+    kort_beskrivning: { type: String, required: true },
+    beskrivning: { type: String, required: true },
+    sista_ansokningsdag: { type: Date },
     kandidater: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Kandidat'
     }]
 }, {
-    // Lägger automatiskt till createdAt och updatedAt i databasen
     timestamps: true
 });
 

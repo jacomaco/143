@@ -16,6 +16,9 @@
     - Build an admin panel for site updates.
     - Look into how files like cv are stored on something like render. Maybe I should use google cloud run to host instead if I can't access the files one the server
     - Implement a light/dark mode toggle for improved UX (perhaps it should be located where the 'Utvecklat med kärlek it Sverige)
+    - Add a count down that says how many days remain until the last date to apply to job.
+    - Set up an email address for the website
+    
     
 
 

@@ -63,7 +63,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
         </div>
 
         {/* Bottenrad med Copyright */}
