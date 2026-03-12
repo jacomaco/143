@@ -15,6 +15,7 @@
     - Create the contact form. (implement frontend backend integration)
     - Build an admin panel for site updates.
     - Look into how files like cv are stored on something like render. Maybe I should use google cloud run to host instead if I can't access the files one the server
+    - Implement a light/dark mode toggle for improved UX (perhaps it should be located where the 'Utvecklat med kärlek it Sverige)
     
 
 
@@ -39,7 +40,6 @@
 
         - Option B (Testing): Set to 0.0.0.0/0 to allow access from anywhere.
     
-    - Don't include 'kandidater' in frontend or console log!! (handle the axios)
     -Change the API keys for new ones before launch just in case.
 
 - [ ] Legal:

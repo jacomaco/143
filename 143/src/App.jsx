@@ -12,21 +12,20 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    jobService.getAll().then(initialJobs => { 
-      const sanitizedJobs = initialJobs.map(({ kandidater, ...rest }) => rest)
-      setJobs(sanitizedJobs)
+    jobService.getAll().then(jobsFromDb => {
+      setJobs(jobsFromDb);
       setIsLoading(false);
     })
   }, [])
-  
+
   return (
     <div className="min-h-[100svh] bg-dot-pattern relative">
-      
+
       <Background />
 
       <div className="relative z-10 flex flex-col min-h-[100svh]">
         <Header />
-        
+
         <main className="max-w-6xl mx-auto px-4 py-10 flex-grow w-full">
           <ValueProposition />
           <Jobs jobsToShow={jobs} isLoading={isLoading} />
@@ -35,7 +34,7 @@ export default function App() {
 
         {/* 2. LÄGG TILL FOOTER HÄR! */}
         <Footer />
-        
+
       </div>
     </div>
   )

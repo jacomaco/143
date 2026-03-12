@@ -7,8 +7,9 @@ const multer = require('multer')
 // (Du kan behöva skapa mappen "uploads" manuellt i web-backend-mappen)
 const upload = multer({ dest: 'uploads/' })
 
+// Denna rutt hämtar jobbdatan som ska visas för användarna i frontenden
 jobsRouter.get('/', async (request, response) => {
-  const jobs = await Job.find({})
+  const jobs = await Job.find({}).select('-kandidater')
   response.json(jobs)
 })
 
