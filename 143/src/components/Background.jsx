@@ -1,27 +1,6 @@
-import { useEffect, useState } from 'react';
-
 const Background = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   return (
     <>
-      {/* Interactive Spotlight - Nu med ett svagt vitt/cyan-sken som ser ut som en stjärnficklampa */}
-      <div 
-        className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(34, 211, 238, 0.08), transparent 40%)`
-        }}
-      ></div>
-
       {/* NEBULOSORNA (Ligger bakom allt) */}
       {/* Nebulosa 1: Djup lila uppe till vänster */}
       <div className="fixed top-[-10%] left-[-10%] w-[600px] h-[600px] bg-purple-600/40 rounded-full blur-[150px] pointer-events-none z-0 mix-blend-screen"></div>

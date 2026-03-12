@@ -2,12 +2,12 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900/80 backdrop-blur-md border-t border-slate-800 mt-20">
+    <footer className="bg-slate-900/80 backdrop-blur-md border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
+
         {/* Huvudgrid för footern */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-          
+
           {/* Kolumn 1: Varumärke & Pitch */}
           <div className="lg:col-span-1">
             <a href="#" className="flex items-center gap-2 text-2xl font-bold tracking-tight mb-4 inline-flex">
@@ -50,7 +50,7 @@ const Footer = () => {
                 <span className="text-blue-500">📍</span> Stockholm, Sverige
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-blue-500">✉️</span> 
+                <span className="text-blue-500">✉️</span>
                 <a href="mailto:hej@starmatch.se" className="hover:text-blue-400 transition-colors">hej@starmatch.se</a>
               </li>
               <li className="mt-4 pt-2">
