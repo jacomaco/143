@@ -13,14 +13,7 @@ jobsRouter.get('/', async (request, response) => {
   response.json(jobs)
 })
 
-// === NY ADMIN-RUTT ===
-// Denna rutt hämtar ALL data (inklusive kandidater) för admin-panelen
-jobsRouter.get('/admin', async (request, response) => {
-  // populate('kandidater') fyller i hela kandidat-objekten istället för bara id:n
-  const jobs = await Job.find({}).populate('kandidater')
-  response.json(jobs)
-})
-// =====================
+// Admin-rutter har flyttats till controllers/admin.js
 
 jobsRouter.post('/', async (request, response) => {
   const body = request.body
