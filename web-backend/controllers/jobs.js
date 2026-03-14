@@ -13,6 +13,15 @@ jobsRouter.get('/', async (request, response) => {
   response.json(jobs)
 })
 
+// === NY ADMIN-RUTT ===
+// Denna rutt hämtar ALL data (inklusive kandidater) för admin-panelen
+jobsRouter.get('/admin', async (request, response) => {
+  // populate('kandidater') fyller i hela kandidat-objekten istället för bara id:n
+  const jobs = await Job.find({}).populate('kandidater')
+  response.json(jobs)
+})
+// =====================
+
 jobsRouter.post('/', async (request, response) => {
   const body = request.body
 
@@ -29,10 +38,18 @@ jobsRouter.post('/', async (request, response) => {
     beskrivning: body.beskrivning,
     sista_ansokningsdag: body.sista_ansokningsdag,
     // Om inga personer skickas med, sätter vi en tom array som standard
-    kandidater: body.kandidater || [] // returnera inte denna till frontend, den hanteras internt i backend!
+    kandidater: [] // Nytt jobb har inga kandidater, ingen mening med att skicka in från frontend!
   })
 
-  const savedJob = await job.save()
+  let savedJob = await job.save()
+  
+  // Konvertera till vanliga objekt och ta bort kandidater manuellt för svaret
+  savedJob = savedJob.toObject()
+  savedJob.id = savedJob._id.toString()
+  delete savedJob._id
+  delete savedJob.__v
+  delete savedJob.kandidater
+
   response.status(201).json(savedJob)
 })
 
@@ -55,15 +72,24 @@ jobsRouter.put('/:id', async (request, response) => {
     kort_beskrivning: body.kort_beskrivning,
     beskrivning: body.beskrivning,
     sista_ansokningsdag: body.sista_ansokningsdag,
-    kandidater: body.kandidater || []
+    // Vi undviker att skriva över kandidater-arrayen vid vanliga put-uppdateringar
   }
 
-  const updatedJob = await Job.findByIdAndUpdate(
+  let updatedJob = await Job.findByIdAndUpdate(
     request.params.id,
     job,
     { new: true, runValidators: true, context: 'query' })
 
-  updatedJob ? response.json(updatedJob) : response.status(404).end()
+  if (updatedJob) {
+    updatedJob = updatedJob.toObject()
+    updatedJob.id = updatedJob._id.toString()
+    delete updatedJob._id
+    delete updatedJob.__v
+    delete updatedJob.kandidater
+    response.json(updatedJob)
+  } else {
+    response.status(404).end()
+  }
 })
 
 // Route för att skicka in en ansökan (lägger till i kandidater-arrayen)
@@ -98,8 +124,15 @@ jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, respons
 
   // Länka kandidaten till jobbet
   job.kandidater = job.kandidater.concat(savedKandidat._id)
-  const savedJob = await job.save()
+  let savedJob = await job.save()
   
+  // Konvertera till vanliga objekt och ta bort kandidater manuellt för svaret
+  savedJob = savedJob.toObject()
+  savedJob.id = savedJob._id.toString()
+  delete savedJob._id
+  delete savedJob.__v
+  delete savedJob.kandidater
+
   response.status(201).json(savedJob)
 })
 
