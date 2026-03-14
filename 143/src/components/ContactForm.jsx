@@ -62,13 +62,14 @@ const ContactForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-slate-300 mb-1">Telefonnummer</label>
+            <label className="block text-sm font-semibold text-slate-300 mb-1">Telefonnummer *</label>
             <input
               type="tel"
+              required
               className="w-full bg-slate-800/80 border border-slate-600 text-white placeholder-slate-400 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
               value={formData.telefon}
               onChange={(e) => setFormData({...formData, telefon: e.target.value})}
-              placeholder="Valfritt"
+              placeholder="Ditt telefonnummer"
             />
           </div>
 

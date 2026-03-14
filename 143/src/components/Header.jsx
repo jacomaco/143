@@ -4,7 +4,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "Tjänster", href: "#services" },
+    { name: "Om oss", href: "#services" },
     { name: "Lediga uppdrag", href: "#assignments" },
     { name: "Kontakta oss", href: "#contact" },
   ];
