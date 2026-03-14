@@ -87,9 +87,6 @@ jobsRouter.put('/:id', async (request, response) => {
 
 // Route för att skicka in en ansökan (lägger till i kandidater-arrayen)
 jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response) => {
-  console.log("BODY:", request.body)
-  console.log("FILE:", request.file)
-
   const body = request.body
   const file = request.file // Här hamnar informationen om den uppladdade filen
   

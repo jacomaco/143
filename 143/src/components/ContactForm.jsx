@@ -10,7 +10,7 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Formulär skickat:", formData);
+    // Här skulle du normalt skicka datan till ditt backend-API
     alert("Tack för ditt meddelande! Vi återkommer till dig så snart vi kan.");
     setFormData({ namn: '', email: '', telefon: '', meddelande: '' });
   };

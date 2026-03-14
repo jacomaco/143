@@ -2,6 +2,9 @@
 **Live URL**: https://one43-1s7b.onrender.com/
 ## TODO
 
+
+- Istället för att det står tjänser i navbar så att det ska stå om oss istället. (kolla med ai vad man skulle kunna kalla det)
+- Fixa så att telefonnummer i ansökan och i kontaktaoss formuläret är obligatoriskt att fylla i.
 - [ ] Testing: 
     - Write unit/integration tests for jobsRouter.
 
