@@ -5,6 +5,7 @@ const logger = require('./utils/logger')
 const middleware = require('./utils/middleware');
 const jobsRouter = require('./controllers/jobs');
 const adminRouter = require('./controllers/admin');
+const messagesRouter = require('./controllers/messages');
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.use(middleware.requestLogger)
 
 app.use('/api/jobs', jobsRouter)
 app.use('/api/admin', adminRouter)
+app.use('/api/messages', messagesRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

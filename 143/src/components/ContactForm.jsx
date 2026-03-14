@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import messageService from '../services/messages';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -8,11 +9,18 @@ const ContactForm = () => {
     meddelande: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Här skulle du normalt skicka datan till ditt backend-API
-    alert("Tack för ditt meddelande! Vi återkommer till dig så snart vi kan.");
-    setFormData({ namn: '', email: '', telefon: '', meddelande: '' });
+    try {
+      // Skicka datan till vårt backend-API
+      await messageService.create(formData);
+      
+      alert("Tack för ditt meddelande! Vi återkommer till dig så snart vi kan.");
+      setFormData({ namn: '', email: '', telefon: '', meddelande: '' });
+    } catch (error) {
+      console.error("Kunde inte skicka meddelandet:", error);
+      alert("Något gick fel vid inskickandet. Försök igen senare.");
+    }
   };
 
   return (
