@@ -1,24 +1,33 @@
 const jobsRouter = require('express').Router()
 const Job = require('../models/job')
-const Kandidat = require('../models/kandidat') // Importera den nya Kandidat-modellen
+const Kandidat = require('../models/kandidat')
 const multer = require('multer')
 
-// Konfigurera multer. Detta sparar uppladdade filer i mappen "uploads" i din backend.
-// (Du kan behöva skapa mappen "uploads" manuellt i web-backend-mappen)
-const upload = multer({ dest: 'uploads/' })
+// 1. IMPORTERA GOOGLE CLOUD STORAGE
+const { Storage } = require('@google-cloud/storage')
 
-// Denna rutt hämtar jobbdatan som ska visas för användarna i frontenden
+// 2. ÄNDRA MULTER TILL ATT ANVÄNDA RAM-MINNET (Sluta spara lokalt)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 } // Max 5MB per fil (säkerhet!)
+})
+
+// 3. INITIERA GOOGLE CLOUD (Fyll i dina uppgifter här!)
+const storage = new Storage({
+  projectId: 'star-match-storage', // Hittas i JSON-filen under "project_id"
+  keyFilename: 'google-cloud-key.json' // Namnet på JSON-filen i din mapp
+})
+
+const bucket = storage.bucket('starmatch-cv-kandidater') // T.ex. starmatch-cv-kandidater-2026
+
 jobsRouter.get('/', async (request, response) => {
   const jobs = await Job.find({}).select('-kandidater')
   response.json(jobs)
 })
 
-// Admin-rutter har flyttats till controllers/admin.js
-
 jobsRouter.post('/', async (request, response) => {
   const body = request.body
 
-  // Skapa ett nytt jobb utifrån schemat
   const job = new Job({
     titel: body.titel,
     namn: body.namn,
@@ -30,13 +39,11 @@ jobsRouter.post('/', async (request, response) => {
     kort_beskrivning: body.kort_beskrivning,
     beskrivning: body.beskrivning,
     sista_ansokningsdag: body.sista_ansokningsdag,
-    // Om inga personer skickas med, sätter vi en tom array som standard
-    kandidater: [] // Nytt jobb har inga kandidater, ingen mening med att skicka in från frontend!
+    kandidater: []
   })
 
   let savedJob = await job.save()
-  
-  // Konvertera till vanliga objekt och ta bort kandidater manuellt för svaret
+
   savedJob = savedJob.toObject()
   savedJob.id = savedJob._id.toString()
   delete savedJob._id
@@ -65,7 +72,6 @@ jobsRouter.put('/:id', async (request, response) => {
     kort_beskrivning: body.kort_beskrivning,
     beskrivning: body.beskrivning,
     sista_ansokningsdag: body.sista_ansokningsdag,
-    // Vi undviker att skriva över kandidater-arrayen vid vanliga put-uppdateringar
   }
 
   let updatedJob = await Job.findByIdAndUpdate(
@@ -85,38 +91,68 @@ jobsRouter.put('/:id', async (request, response) => {
   }
 })
 
-// Route för att skicka in en ansökan (lägger till i kandidater-arrayen)
+// === NY, UPPDATERAD ROUTE FÖR ATT ANSÖKA ===
 jobsRouter.post('/:id/ansokan', upload.single('cvFile'), async (request, response) => {
   const body = request.body
-  const file = request.file // Här hamnar informationen om den uppladdade filen
-  
+  const file = request.file // Filen ligger nu i RAM-minnet (file.buffer)
+
   const job = await Job.findById(request.params.id)
 
   if (!job) {
     return response.status(404).json({ error: 'Jobbet hittades inte' })
   }
 
-  // Skapa en ny kandidat
+  let cvPublicUrl = null
+
+  // Om användaren skickade med en fil, ladda upp den till Google Cloud
+  if (file) {
+    // Skapa ett unikt namn (t.ex. 1678881234567-mitt_cv.pdf)
+    const uniqueFileName = `${Date.now()}-${file.originalname.replace(/\s/g, '_')}`
+
+    // Skapa en referens till filen i Bucketen
+    const blob = bucket.file(uniqueFileName)
+
+    // Skapa en "stream" och skicka över datan från RAM till molnet
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      contentType: file.mimetype
+    })
+
+    // Vi måste använda ett Promise för att invänta uppladdningen innan vi sparar i MongoDB
+    await new Promise((resolve, reject) => {
+      blobStream.on('error', (err) => {
+        console.error("Fel vid molnuppladdning:", err)
+        reject(err)
+      })
+
+      blobStream.on('finish', () => {
+        // Skapa en publik länk till filen!
+        cvPublicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+        resolve()
+      })
+
+      // Utför själva skrivningen av bufferten
+      blobStream.end(file.buffer)
+    })
+  }
+
+  // Skapa kandidaten (nu med den publika molnlänken istället för en lokal sökväg!)
   const newKandidat = new Kandidat({
     namn: body.namn,
     email: body.email,
     telefon: body.telefon,
     meddelande: body.meddelande,
     linkedin: body.linkedin,
-    // Om en fil laddades upp, spara dess sökväg. Annars sätt till null.
-    cvSokvag: file ? file.path : null, 
+    cvSokvag: cvPublicUrl, // Sparar länken till Google Cloud
     datum: new Date(),
     ansoktJobb: job._id
   })
 
-  // Spara kandidaten i databasen
   const savedKandidat = await newKandidat.save()
 
-  // Länka kandidaten till jobbet
   job.kandidater = job.kandidater.concat(savedKandidat._id)
   let savedJob = await job.save()
-  
-  // Konvertera till vanliga objekt och ta bort kandidater manuellt för svaret
+
   savedJob = savedJob.toObject()
   savedJob.id = savedJob._id.toString()
   delete savedJob._id

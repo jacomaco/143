@@ -8,7 +8,7 @@ This is a full-stack web application built to handle job postings and candidate 
 The project is built with a modern Javascript stack (MERN) and is designed with responsive UI and a robust RESTful API backend.
 
 ## 🚀 Built With
-* **Frontend:** React, Vite, TailwindCSS (or your CSS framework)
+* **Frontend:** React, Vite, TailwindCSS
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB, Mongoose
 * **Hosting/Deployment:** Render
